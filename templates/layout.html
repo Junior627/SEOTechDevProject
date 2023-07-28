@@ -7,7 +7,23 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    
+    {% block navbar %}
+    <nav class="navbar bg-light">
+        <a class="navbar-brand"> &lt; Game Name &gt; </a>
+        <ul class="nav nav-pills nav-fill justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="home.html">Play</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="story.html">Our Story</a>
+            </li>
+            <li>
+                <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+        </ul>
+    </nav>
+    {% endblock %}
+
     {% block content %}
     {% endblock %}
 
