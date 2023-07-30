@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import requests
 import constants
@@ -39,11 +40,21 @@ class stockAPI:
         print(json.dumps(r.json(), indent=1))
 
     def reorderDict(self, dict):
+        keys = list(orderedData.keys())
+        if self.compareDate(keys[0], keys[1]):
+            return dict
         newDict = {}
         for index in range(len(dict)):
             item = dict.popitem()
             newDict[item[0]] =item[1]
         return newDict
+
+    def compareDate(self, date1, date2):
+        newDate1 = datetime.strptime(date1, "%Y-%m-%d")
+        newDate2 = datetime.strptime(date2, "%Y-%m-%d")
+        if newDate1 > newDate2:
+            return True
+        return False
 
     def significantChange(self):
         global dropDates, belowInflationDates, tenIncreaseDates, orderedData    
@@ -54,7 +65,7 @@ class stockAPI:
         #must not run multiple times, improve
         orderedData = self.reorderDict(dataDateAverage)
         if (len(orderedData) == 0):
-            print("Error: Run getDateAndAverage function first")
+            self.getDateAndAverage()
         for items in orderedData.items():
             if (items[0] == list(orderedData.keys())[-1]):
                 continue
@@ -79,8 +90,7 @@ class stockAPI:
         return dropDates
     def getOrderedDate(self):
         if (len(orderedData) == 0):
-            print("Error: Run largestIncrease first")
-            return
+            self.significantChange()
         return orderedData
     def getDropDates(self):
         return dropDates
@@ -91,7 +101,7 @@ class stockAPI:
     def gettenincreaseDates(self):
         return tenIncreaseDates
     
-    
+'''    
 #Running Class Example
 
 apple = stockAPI("AAPL", "1month", 100, "2015-01-01", "2020-01-01")
@@ -109,3 +119,4 @@ print(apple.gettenincreaseDates())
 
 print("\n Printing entire set \n")
 print(apple.getOrderedDate())
+'''
