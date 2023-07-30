@@ -1,0 +1,45 @@
+#fixedleft {
+    right:0 !important;
+    left:auto;
+    margin-top: 15%;
+}
+.quicksand {
+    color: black !important;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+}
+.quicksandlight {
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+}
+.quicksandbig {
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+    font-size: large;
+}
+
+.mainPage1 {
+    border: 1px solid black;
+    height: 70vh;
+    display: flex;
+}
+.mainPage2 {
+    border: 1px solid black;
+    height: 70vh;
+    display: flex;
+    background: rgb(166,170,169);
+    background: linear-gradient(131deg, rgba(166,170,169,1) 0%, rgba(60,60,60,1) 100%);}
+#textMainPage1 {
+    width: 60%;
+    float: left;
+}
+#newspaperMainPage1 {
+    width: 40%;
+}
+#imgs {
+    object-fit: fill !important;
+}
+
+
