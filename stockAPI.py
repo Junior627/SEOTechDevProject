@@ -5,18 +5,19 @@ import constants
 
 apikey = constants.api_key
 timezone = "America/New_York"
-
+order = "asc"
 class stockAPI:
     def __init__(self, company, interval, outputsize, startDate, endDate):
         global payload 
         payload = {
-                'start_date':startDate,
+                'start_date':startDate, # accepts yyyy-MM-dd or yyyy-MM-dd hh:mm:ss
                 'end_date': endDate,
                 'symbol':company, 
-                'interval':interval, 
-                'outputsize':outputsize,
-                'timezone':timezone, 
-                'apikey':apikey
+                'interval':interval, # accepts 1min, 5min, 15min, 30min, 45min, 1h, 2h, 4h, 8h, 1day, 1week, 1month
+                'outputsize':outputsize, # int
+                'timezone':timezone, # UTC, Exchange, IANA TimeZone Database
+                'apikey':apikey,
+                'order':order
                 }
         
     def requestAPIData(self):
@@ -39,16 +40,6 @@ class stockAPI:
         print(" ")
         print(json.dumps(r.json(), indent=1))
 
-    def reorderDict(self, dict):
-        keys = list(orderedData.keys())
-        if self.compareDate(keys[0], keys[1]):
-            return dict
-        newDict = {}
-        for index in range(len(dict)):
-            item = dict.popitem()
-            newDict[item[0]] =item[1]
-        return newDict
-
     def compareDate(self, date1, date2):
         newDate1 = datetime.strptime(date1, "%Y-%m-%d")
         newDate2 = datetime.strptime(date2, "%Y-%m-%d")
@@ -62,8 +53,6 @@ class stockAPI:
         belowInflationDates = {}
         tenIncreaseDates = {}
         orderedData = {}
-        #must not run multiple times, improve
-        orderedData = self.reorderDict(dataDateAverage)
         if (len(orderedData) == 0):
             self.getDateAndAverage()
         for items in orderedData.items():
@@ -100,13 +89,15 @@ class stockAPI:
     
     def gettenincreaseDates(self):
         return tenIncreaseDates
-    
+
+apple = stockAPI("AAPL", "1day", 100, "2019-01-01", "2019-02-01")
+apple.requestAPIData()
+dataset = apple.getDateAndAverage()
+print(dataset)
 '''    
 #Running Class Example
 
-apple = stockAPI("AAPL", "1month", 100, "2015-01-01", "2020-01-01")
-apple.requestAPIData()
-apple.getDateAndAverage()
+
 apple.significantChange()
 print("Stock dropped in value \n")
 print(apple.getDropDates())
