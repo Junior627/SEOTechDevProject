@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1> News of {{symbol}} </h1>
+    <ol>
+        <li>
+            <h3> {{title1}}</h3>
+            <br>
+            <p><small> Published on {{pub1}}</small></p>
+            <br>
+            <p> {{disc1}} </p>
+        </li>
+        <li>
+            <h3> {{title2}}</h3>
+            <br>
+            <p><small> Published on {{pub2}}</small></p>
+            <br>
+            <p> {{disc2}} </p>            
+        </li>
+        <li>
+            <h3> {{title3}}</h3>
+            <br>
+            <p><small> Published on {{pub3}}</small></p>
+            <br>
+            <p> {{disc3}} </p>            
+        </li>
+    </ol>
+{% endblock content %}
