@@ -1,3 +1,11 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
-{% block content %}<h1>Hello, world</h1>{% endblock %}
+{% block content %}
+
+<h1>Hello, {{userName}}</h1>
+<h3> Score: {{num}} </h3>
+    <form action ="/test">
+            <input type ="submit" value="Click me" />
+    </form>
+    <button onclick="UpdateScore()"> <a href="/test" >Click me</a></button>
+{% endblock %}
