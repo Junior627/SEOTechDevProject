@@ -1,13 +1,14 @@
 from flask import Flask, render_template
+from stockAPI import filteredData
 app = Flask(__name__)
 
 @app.route("/")
 @app.route("/home")
 def homepage():
-    return render_template('home.html')
+    return render_template('home.html', dataset = filteredData)
 
 @app.route("/profile")
-def story():
+def profile():
     return render_template('profile.html')
 
 @app.route("/story")

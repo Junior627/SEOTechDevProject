@@ -22,14 +22,11 @@ class stockAPI:
                 'timezone':timezone, 
                 'apikey':apikey
                 }
-        
-    def requestAPIData(self):
-        global r 
-        r = requests.get('https://api.twelvedata.com/time_series', params=self.payload)
+        self.r = requests.get('https://api.twelvedata.com/time_series', params=self.payload)
 
     def getDateAndAverage(self):
         # average is x while date is y
-        rawdata = r.json()
+        rawdata = self.r.json()
         for datapoint in rawdata['values']:
             average = (float(datapoint['high'])+ float(datapoint['low']))/2
             average = round(average, 8)
@@ -39,7 +36,7 @@ class stockAPI:
     def printdata(self):
         print("Data")
         print(" ")
-        print(json.dumps(r.json(), indent=1))
+        print(json.dumps(self.r.json(), indent=1))
 
     def reorderDict(self, dict):
         if (self.oneRunTime == True):
@@ -95,30 +92,34 @@ class stockAPI:
             dateList[index] = datetime.strptime(dateList[index], "%Y-%m-%d")
         return dateList
 
-
     def getdropDates(self):
         return self.parseDates(self.dropDates)
     
     def getDropInflationDates(self):
-        return self.belowInflationDates
+        return self.parseDates(self.belowInflationDates)
     
     def gettenincreaseDates(self):
-        return self.tenIncreaseDates
+        return self.parseDates(self.tenIncreaseDates)
     
 
 #Running Class Example
+apple = stockAPI("AAPL", "1day", 100, "2019-01-01", "2019-03-01")
+unfilteredData = apple.getDateAndAverage()
+filteredData = []
+for item in unfilteredData.items():
+    filteredData.append({"date":item[0],"value":item[1] })
 
-apple = stockAPI("AAPL", "1month", 100, "2015-01-01", "2020-01-01")
-apple.requestAPIData()
-apple.getDateAndAverage()
-apple.significantChange()
-print("Stock dropped in value \n")
-print(apple.getdropDates()[0].year)
-print("\n Stock growth is below Inflation \n")
-print(apple.getDropInflationDates())
+# apple = stockAPI("AAPL", "1month", 100, "2015-01-01", "2020-01-01")
+# apple.getDateAndAverage()
+# apple.significantChange()
+# print("Stock dropped in value \n")
+# print(apple.getdropDates()[0].year)
+# print("\n Stock growth is below Inflation \n")
+# print(apple.getDropInflationDates())
 
-print("\n Stock growth is higher than 10 percent \n")
-print(apple.gettenincreaseDates())
+# print("\n Stock growth is higher than 10 percent \n")
+# print(apple.gettenincreaseDates())
 
-print("\n Printing entire set \n")
-print(apple.getOrderedDate())
+# print("\n Printing entire set \n")
+# print(apple.getOrderedDate())
+# dataset = apple.getOrderedDate()

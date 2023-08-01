@@ -1,31 +1,22 @@
-const width = 800;
-const height = 400;
+const width = 650;
+const height = 300;
 const marginTop = 40;
 const marginRight = 40;
 const marginBottom = 40;
 const marginLeft = 200;
 
-const datasets = [{ date: new Date("2022-01-01"), value: 200 }, { date: new Date("2022-01-02"), value: 400 }, { date: new Date("2022-01-03"), value: 300 }];
-const dataset = [
-{ date: new Date("2022-01-01"), value: 200 },
-{ date: new Date("2022-02-01"), value: 250 },
-{ date: new Date("2022-03-01"), value: 180 },
-{ date: new Date("2022-04-01"), value: 300 },
-{ date: new Date("2022-05-01"), value: 280 },
-{ date: new Date("2022-06-01"), value: 220 },
-{ date: new Date("2022-07-01"), value: 300 },
-{ date: new Date("2022-08-01"), value: 450 },
-{ date: new Date("2022-09-01"), value: 280 },
-{ date: new Date("2022-10-01"), value: 600 },
-{ date: new Date("2022-11-01"), value: 780 },
-{ date: new Date("2022-12-01"), value: 320 }
-];
+for(let index = 0; index < datasets.length; index++){
+    datasets[index]["date"] = new Date(datasets[index]["date"])
+}
+console.log(datasets)
+
+
 const x = d3.scaleTime()
     .range([0, width])
-    .domain(d3.extent(dataset, d => d.date));
+    .domain(d3.extent(datasets, d => d.date));
 const y = d3.scaleLinear()
     .range([height,0])
-    .domain([0, d3.max(dataset, d => d.value)]);
+    .domain([30, d3.max(datasets, d => d.value)]);
 
 const svg = d3.select("#stockChart")
     .append("svg")
@@ -39,8 +30,8 @@ const svg = d3.select("#stockChart")
 svg.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(x)
-        .ticks(d3.timeMonth.every(1))
-        .tickFormat(d3.timeFormat("%b %Y")));
+        .ticks(d3.timeDay.every(5))
+        .tickFormat(d3.timeFormat("%b %d")));
 
 // y axis
 
@@ -52,7 +43,7 @@ const line = d3.line()
     .y(d => y(d.value));
 
 svg.append("path")
-    .datum(dataset)
+    .datum(datasets)
     .attr("fill", "none")
     .attr("stroke", "white")
     .attr("stroke-width", 1)
