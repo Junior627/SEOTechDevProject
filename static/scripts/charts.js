@@ -16,7 +16,7 @@ const x = d3.scaleTime()
     .domain(d3.extent(datasets, d => d.date));
 const y = d3.scaleLinear()
     .range([height,0])
-    .domain([30, d3.max(datasets, d => d.value)]);
+    .domain([35, d3.max(datasets, d => d.value)]);
 
 const svg = d3.select("#stockChart")
     .append("svg")
@@ -29,15 +29,38 @@ const svg = d3.select("#stockChart")
 // x axis
 svg.append("g")
     .attr("transform", `translate(0,${height})`)
+    .style("font-size", "12px")
     .call(d3.axisBottom(x)
         .ticks(d3.timeDay.every(5))
-        .tickFormat(d3.timeFormat("%b %d")));
-
+        .tickFormat(d3.timeFormat("%b %d")))
+    .selectAll(".tick line")
+    .style("stroke", "#6c757d");
+svg.selectAll(".domain")
+    .styles({ fill:"none", stroke:"#6c757d",  "stroke-width":"1" });
 // y axis
 
 svg.append("g")
-    .call(d3.axisLeft(y))
+    .call(d3.axisLeft(y)
+        .ticks(5)
+    )
+    .style("font-size", "12px")
+    .call(g => g.select(".domain").remove())
+    .selectAll(".tick line")
+    .style("stroke-opacity", 0)
+svg.selectAll(".tick text")
+    .attr("fill", "#6c757d");
 
+
+// grid lines
+svg.selectAll("horizontalLines")
+    .data(y.ticks().slice(1))
+    .join("line")
+    .attr("y1", d => y(d))
+    .attr("y2", d => y(d))
+    .attr("x1", 0)
+    .attr("x2", width)
+    .attr("stroke", "#6c757d")
+    .attr("stroke-width", 0.5);
 const line = d3.line()
     .x(d => x(d.date))
     .y(d => y(d.value));
@@ -45,7 +68,7 @@ const line = d3.line()
 svg.append("path")
     .datum(datasets)
     .attr("fill", "none")
-    .attr("stroke", "white")
+    .attr("stroke", "#adb5bd")
     .attr("stroke-width", 1)
     .attr("d", line);
 
