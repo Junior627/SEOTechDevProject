@@ -35,6 +35,8 @@ with app.app_context():
 def newsTrial():
     newsAPI.requestInfo()
     return render_template('NewsBlock.html', symbol = newsAPI.newsArray[0]["entities"][0]["name"] , pub1 =newsAPI.newsArray[0]["published_at"], pub2 = newsAPI.newsArray[1]["published_at"], pub3 = newsAPI.newsArray[2]["published_at"], title1 = newsAPI.newsArray[0]["title"], title2= newsAPI.newsArray[1]["title"], title3= newsAPI.newsArray[2]["title"], disc1 = newsAPI.newsArray[0]["description"], disc2 = newsAPI.newsArray[1]["description"], disc3  = newsAPI.newsArray[2]["description"] )
+
+@app.route("/")
 @app.route("/home")
 def homepage():
     return render_template('home.html', dataset = filteredData)
@@ -46,7 +48,6 @@ def profile():
 @app.route("/story")
 def story():
     return render_template('story.html')
-
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -74,7 +75,7 @@ def testFun():
     update_user = User.query.filter_by(username=currentuserID).first()
     return render_template('home.html', num =update_user.streakScore)
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/signup", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():

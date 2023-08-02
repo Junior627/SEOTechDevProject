@@ -4,43 +4,125 @@
     margin-top: 15%;
 }
 .quicksand {
-    color: black !important;
+    color: #dee2e6 !important;
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
 }
 .quicksandlight {
-    color: black;
+    color: #e9ecef;
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
 }
 .quicksandbig {
-    color: black;
+    color: #f8f9fa;
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
     font-size: large;
 }
-
-.mainPage1 {
-    border: 1px solid black;
-    height: 70vh;
-    display: flex;
+.handJetHeader {
+    font-family: 'Handjet', cursive;
+    font-weight: 400;
+    font-size: 140px;
+    margin-bottom: 0;
 }
-.mainPage2 {
-    border: 1px solid black;
+.handJetSubtitle {
+    font-family: 'Handjet', cursive;
+    font-weight: 300;
+    font-size: 35px;
+}
+.mainPageStandard {
+    height: 75vh;
+    display: flex;
+    background-color: #f8f9fa;
+}
+.mainPageBlack {
     height: 70vh;
     display: flex;
-    background-color: #212529;
+    background-color: #212529; 
+    z-index: 10;
+
+}
+.navbarColor {
+    background-color: #212529; 
+}
+#microsoftLogo {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    top: 25%;
+    left: 25%;    
+}
+
+.emptyCircleM {
+    background-color: white;
+    position: absolute;
+    top: 60px;
+    left:100px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50% ;
+    border: 0.5px solid #e9ecef;
+}
+
+#amazonLogo {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    top: 12.5%;
+    left: 12.5%;   
+}
+
+.emptyCircleA {
+    background-color: white;
+    position: absolute;
+    top: 50px;
+    left:900px;
+    height: 200px;
+    width: 200px;
+    border-radius: 50% ;
+    border: 0.5px solid #e9ecef;
+}
+
+#googleLogo {
+    position: relative;
+    height: 225px;
+    width: 225px;
+    top: 12.5%;
+    left: 12.5%;
+}
+
+.emptyCircleG {
+    background-color: white;
+    position: absolute;
+    top: 300px;
+    left:800px;
+    height: 300px;
+    width: 300px;
+    border-radius: 50% ;
+    border: 0.5px solid #e9ecef;
+}
+#teslaLogo {
+    position: relative;
+    height: 75px;
+    width: 75px;
+    top: 25%;
+    left: 25%;
     
 }
-#textMainPage1 {
-    width: 60%;
-    float: left;
-}
-#newspaperMainPage1 {
-    width: 40%;
-}
-#imgs {
-    object-fit: fill !important;
-}
 
-
+.emptyCircleT {
+    background-color: white;
+    position: absolute;
+    top: 250px;
+    left:50px;
+    height: 150px;
+    width: 150px;
+    border-radius: 50% ;
+    border: 0.5px solid #e9ecef;
+}
+#profileImage {
+    height:112.5%;
+    width:112.5%;
+    padding: 5px;
+    padding-top: 2px;
+}

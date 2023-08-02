@@ -1,9 +1,9 @@
 const width = 650;
 const height = 300;
-const marginTop = 40;
-const marginRight = 40;
-const marginBottom = 40;
-const marginLeft = 200;
+const marginTop = 30;
+const marginRight = 30;
+const marginBottom = 30;
+const marginLeft = 30;
 
 for(let index = 0; index < datasets.length; index++){
     datasets[index]["date"] = new Date(datasets[index]["date"])

@@ -2,13 +2,52 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<!-- <div class="mainPage container-fluid">
-    <div class="textMainPage"><h1 >Hello, world</h1>
+<div class="container-fluid">
+    <div class="row mainPageStandard">
+        <div class="col p-0">
+            <span class="emptyCircleM">
+                <img id="microsoftLogo" src="../static/images/microsoftLogo.svg" alt="Microsoft Logo">
+            </span>
+            <span class="emptyCircleA">
+                <img id="amazonLogo" src="../static/images/amazon-logo.svg" alt="Microsoft Logo">
+            </span>
+            <span class="emptyCircleG">
+                <img id="googleLogo" src="../static/images/google-logo.svg" alt="Microsoft Logo">
+            </span>
+            <span class="emptyCircleT">
+                <img id="teslaLogo" src="../static/images/tesla-logo.svg" alt="Microsoft Logo">
+            </span>
+            <div class="mainPageStandard justify-content-center">
+                
+                <h1 class="handJetHeader align-self-center" >Predict<span><h6 class="handJetSubtitle">the stock price</h6></span></h1>
+            </div>   
+        </div>
     </div>
-    <div>    <img src="../static/newspaper.jpg" alt="Newspaper" class="img-fluid" id="newspaperMainPage">
+    <div class="row mainPageBlack">
+        <div class="col-4 p-3">
+            <p class="quicksand">
+                <h3 class="quicksand">Google Stock</h3> 
+                <h6 class="quicksand">
+                    <br><br>
+                Somthdindsf
+                <br>
+                advfgrst
+                dfsbghsr
+                </h6>
+                
+            </p>
+        </div>
+        <div class="col-8">
+            <div class="container-fluid mainPageBlack"> <div class="align-self-center" id="stockChart"></div> </div>
+        </div>
     </div>
-</div> -->
-<section class="mainPage1">
+    <div class="row mainPageStandard">
+        <div class="col">
+            Column
+        </div>
+    </div>    
+</div>
+<!-- <section class="mainPage1">
     <div id="textMainPage1" class="d-flex justify-content-center align-self-center">
         <h5 class="quicksandbig">Something something SOMething something</h5><br>
         <h6 class="quicksandlight">something</h6>
@@ -30,5 +69,5 @@
     </form>
     <button onclick="UpdateScore()"> <a href="/test" >Click me</a></button>
     <h2>Hi Above</h2>
-</section>
+</section> -->
 {% endblock %}
