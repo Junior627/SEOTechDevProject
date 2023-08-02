@@ -3,6 +3,7 @@ from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from stockAPI import filteredData
 
 import newsAPI
 
@@ -36,7 +37,16 @@ def newsTrial():
     return render_template('NewsBlock.html', symbol = newsAPI.newsArray[0]["entities"][0]["name"] , pub1 =newsAPI.newsArray[0]["published_at"], pub2 = newsAPI.newsArray[1]["published_at"], pub3 = newsAPI.newsArray[2]["published_at"], title1 = newsAPI.newsArray[0]["title"], title2= newsAPI.newsArray[1]["title"], title3= newsAPI.newsArray[2]["title"], disc1 = newsAPI.newsArray[0]["description"], disc2 = newsAPI.newsArray[1]["description"], disc3  = newsAPI.newsArray[2]["description"] )
 @app.route("/home")
 def homepage():
-    return render_template('home.html')
+    return render_template('home.html', dataset = filteredData)
+
+@app.route("/profile")
+def profile():
+    return render_template('profile.html')
+
+@app.route("/story")
+def story():
+    return render_template('story.html')
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -98,4 +108,4 @@ def UpdateScore():
     db.session.commit()
 
 if __name__ == '__main__':
-    app.run(debug=True, host = "0.0.0.0")
+    app.run(debug=True)
