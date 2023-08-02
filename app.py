@@ -1,24 +1,28 @@
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_migrate import Migrate
 
 import newsAPI
 
 
 app = Flask(__name__)
 proxied = FlaskBehindProxy(app)
-app.config['SECRET_KEY']= '3103cf5454ad2aa0be28c21e7c784e39'
+app.config['SECRET_KEY']= 'b5e8834370808fe7be05c5ae699014e4'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+i =0
+currentuserID = ''
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    streakScore = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
@@ -39,34 +43,59 @@ def login():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
-        remember = True if request.form.get('remember') else False
+        print(user)
         if not user:
-            flash('Please Sign Up!')
-            return render_template('register.html', title='Register', form = form)
+            print('Please Sign Up!')
+            return redirect(url_for('register', title='Register', form = form))
         elif user.password != form.password.data:
-            flash('Wrong password, please try again')
+            print('Wrong password, please try again')
             return render_template('login.html', title='Register', form = form)
-        flash(f'Account created for {form.username.data}!', 'success')
-        login_user(user, remember=remember)
-        return redirect(url_for('homepage', userName = form.username.data))
+        else:
+            global currentuserID
+            currentuserID = user.username
+            print(currentuserID)
+            print(f'Logged In Successful, {form.username.data}!')
+            return redirect(url_for('homepage', userName = form.username.data))
     return render_template('login.html', title='Register', form = form)
 
+@app.route("/test")
+def testFun():
+    global currentuserID
+    update_user = User.query.filter_by(username=currentuserID).first()
+    return render_template('home.html', num =update_user.streakScore)
 
 @app.route("/", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        print(user)
         if user:
-            flash('Email address already in use')
+            print('Email address already in use')
             return render_template('register.html', title='Register', form = form)
-        new_user = User(username = form.username.data, email=form.email.data,password = form.password.data)
-        
+        user_name = User.query.filter_by(username=form.username.data).first()
+        if user_name:
+            print('Username already taken')
+            return render_template('register.html', title='Register', form = form)
+        new_user = User(username = form.username.data, email=form.email.data,password = form.password.data, streakScore = 0)
+        global currentuserID
         db.session.add(new_user)
+        currentuserID = new_user.username
+        print(currentuserID)
         db.session.commit()
-        flash(f'Account created for {form.username.data}!', 'success')
+        print(f'Account created for {form.username.data}!', 'success')
+        print(f"{new_user.password}")
+        print(f"{new_user.streakScore}")
         return redirect(url_for('homepage', userName = form.username.data))
     return render_template('register.html', title='Register', form = form)
+
+
+def UpdateScore():
+    global currentuserID
+    update_user = User.query.filter_by(username=currentuserID).first()
+    print(update_user)
+    update_user.streakScore = update_user.streakScore + 1
+    db.session.commit()
 
 if __name__ == '__main__':
     app.run(debug=True, host = "0.0.0.0")
