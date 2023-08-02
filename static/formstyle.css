@@ -4,8 +4,8 @@
 
 .noncontainer {
     position: absolute;
-    max-height: 100vh;
-    overflow: hidden;
+    max-height: 665px;
+    background-color: #dee2e6;
 }
 .boxlogin {
     position: absolute;
@@ -28,6 +28,4 @@
 .margin20p {
     margin: 20%;
 }
-.imgblur {
-    filter: blur(10px);
-}
+
