@@ -1,3 +1,113 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
-{% block content %}<h1>Hello, world</h1>{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mainPageStandard">
+        <div class="col p-0">
+            <span class="emptyCircleM">
+                <img id="microsoftLogo" src="../static/images/microsoftLogo.svg" alt="Microsoft Logo">
+            </span>
+            <span class="emptyCircleA">
+                <img id="amazonLogo" src="../static/images/amazon-logo.svg" alt="Microsoft Logo">
+            </span>
+            <span class="emptyCircleG">
+                <img id="googleLogo" src="../static/images/google-logo.svg" alt="Microsoft Logo">
+            </span>
+            <span class="emptyCircleT">
+                <img id="teslaLogo" src="../static/images/tesla-logo.svg" alt="Microsoft Logo">
+            </span>
+            <div class="mainPageStandard justify-content-center">
+                
+                <h1 class="handJetHeader align-self-center" >Predict<span><h6 class="handJetSubtitle">the stock price</h6></span></h1>
+            </div>   
+        </div>
+    </div>
+    <div class="row mainPageBlack">
+        <div class="col-4">
+            <div class="m-5">
+            <p class="quicksand">
+                <h4 class="quicksand">Google Stock</h4> 
+                <h2 class="quicksand">192.03 </h2>
+
+                
+                <h6 class="quicksand">
+                +9.32 past month
+                <br>
+                Tuesday October 19, 2012
+                    <br><br>
+                
+                <br>
+                Open - 190.2 <br>
+                Close - 193.04
+                </h6>  
+            </p>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="container-fluid mainPageBlack"> <div class="align-self-center" id="stockChart"></div> </div>
+        </div>
+    </div>
+    <div class="row mainPageStandard">
+        <div class="col-7 align-self-center">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6 card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                        </div>  
+                    </div>
+                    <div class="col-6 card" style="width:18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6 card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                        </div>
+                    </div>
+                    <div class="col-6 card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="#" class="card-link">Card link</a>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="p-5">
+                <h5>Within 4 weeks, the price of Google Inc. will?</h5>
+                <button type="button" class="btn choice mt-3">
+                    Increase
+                </button>
+                <br>
+                <button type="button" class="btn choice mt-3">
+                    Remains the same
+                </button>
+                <br>
+                <button type="button" class="btn choice mt-3">
+                    Decrease
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mainPageEnd">
+
+    </div>    
+</div>
+{% endblock %}

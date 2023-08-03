@@ -1,0 +1,48 @@
+{% extends "layout.html" %} 
+{% block title %}Sign Up{% endblock %}
+{% block content %} 
+
+<div class="noncontainer d-flex justify-content-center">
+  <img class="img-fluid imgblur" src="../static/images/stockbackgroundimage.jpg" alt="">
+  <section class="boxlogin d-flex align-self-center">
+      <div class="logintextarea">
+        <div class="margin20p">
+          <h1 >Join us!</h1>
+          <br>
+          Coming back?
+          <br>
+          <a href="login">Login to your account</a>
+        </div>
+      </div>
+      <div class="content-section loginformarea">
+        <div class="margin20p">
+          <form method="POST" action="">
+            <fieldset class="form-group mt-5 ">
+              {{ form.hidden_tag() }}
+              <legend class="m-1"> Sign up </legend>
+              <div class="form-group input-group-sm mt-lg-3">
+                {{ form.username.label(class="form-control-label") }} {% if form.username.errors %} {{ form.username(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> {% for error in form.username.errors%} <span>{{error}}</span> {% endfor %} </div> {% else %} {{ form.username(class="form-control form-control-lg") }} {% endif %}
+              </div>
+              <div class="form-group input-group-sm mt-2">
+                {{ form.email.label(class="form-control-label") }} {% if form.email.errors %} {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> {% for error in form.email.errors%} <span>{{error}}</span> {% endfor %} </div> {% else %} {{ form.email(class="form-control form-control-lg") }} {% endif %}
+              </div>
+              <div class="form-group input-group-sm mt-2">
+                {{ form.password.label(class="form-control-label") }} {% if form.password.errors %} {{ form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> {% for error in form.password.errors%} <span>{{error}}</span> {% endfor %} </div> {% else %} {{ form.password(class="form-control form-control-lg") }} {% endif %}
+              </div>
+              <div class="form-group input-group-sm mt-2">
+                {{ form.confirm_password.label(class="form-control-label") }} {% if form.confirm_password.errors %} {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback"> {% for error in form.confirm_password.errors%} <span>{{error}}</span> {% endfor %} </div> {% else %} {{ form.confirm_password(class="form-control form-control-lg") }} {% endif %}
+              </div>
+            </fieldset>
+            <div class="form-group mt-3">{{form.submit(class="btn btn-outline-primary")}}</div>
+          </form>
+        </div>
+      </div>
+  </section>
+</div> 
+
+{% endblock content %}
+{% block script %}{% endblock %}
