@@ -81,17 +81,53 @@
         <div class="col-4 p-0 ">
             <div class="answerBox">
                 <h5>Within four weeks, the price of {{ company }} will?</h5>
-                <button type="button" class="btn choice mt-3">
+               <script type=text/javascript>
+                    $(function() {
+                      $('a#Increase').on('click', function(e) {
+                        e.preventDefault()
+                        $.getJSON('/HigherCheck',
+                            function(data) {
+                          //do nothing
+                        });
+                        return false;
+                      });
+                    });
+                </script>
+                <a href=# id="Increase"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
                     Increase
-                </button>
+                </button></a>
                 <br>
-                <button type="button" class="btn choice mt-3">
+                <script type=text/javascript>
+                    $(function() {
+                      $('a#Stagnant').on('click', function(e) {
+                        e.preventDefault()
+                        $.getJSON('/SameCheck',
+                            function(data) {
+                          //do nothing
+                        });
+                        return false;
+                      });
+                    });
+                </script>
+                <a href=# id="Stagnant"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
                     Remains the same
-                </button>
+                </button></a>
                 <br>
-                <button type="button" class="btn choice mt-3">
+                <script type=text/javascript>
+                    $(function() {
+                      $('a#Decrease').on('click', function(e) {
+                        e.preventDefault()
+                        $.getJSON('/LowerCheck',
+                            function(data) {
+                          //do nothing
+                        });
+                        return false;
+                      });
+                    });
+                </script>
+                <a href=# id="Decrease"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
                     Decrease
-                </button>
+                </button></a>
             </div>
         </div>
     </div>
