@@ -3,8 +3,8 @@ from forms import RegistrationForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from stockAPI import filteredData
 
+import stockAPI
 import newsAPI
 
 
@@ -34,16 +34,36 @@ with app.app_context():
 @app.route("/news")
 def newsTrial():
     newsAPI.requestInfo()
-    return render_template('NewsBlock.html', symbol = newsAPI.newsArray[0]["entities"][0]["name"] , pub1 =newsAPI.newsArray[0]["published_at"], pub2 = newsAPI.newsArray[1]["published_at"], pub3 = newsAPI.newsArray[2]["published_at"], title1 = newsAPI.newsArray[0]["title"], title2= newsAPI.newsArray[1]["title"], title3= newsAPI.newsArray[2]["title"], disc1 = newsAPI.newsArray[0]["description"], disc2 = newsAPI.newsArray[1]["description"], disc3  = newsAPI.newsArray[2]["description"] )
+    return render_template('NewsBlock.html', pub1 =newsAPI.newsArray[0]["published_at"], pub2 = newsAPI.newsArray[1]["published_at"], pub3 = newsAPI.newsArray[2]["published_at"], title1 = newsAPI.newsArray[0]["title"], title2= newsAPI.newsArray[1]["title"], title3= newsAPI.newsArray[2]["title"], disc1 = newsAPI.newsArray[0]["description"], disc2 = newsAPI.newsArray[1]["description"], disc3  = newsAPI.newsArray[2]["description"] )
 
 @app.route("/")
 @app.route("/home")
 def homepage():
-    return render_template('home.html', dataset = filteredData)
+    stockAPI.getAPIdata()
+    return render_template('home.html', 
+                           dataset = stockAPI.filteredData, 
+                           pub1 = newsAPI.newsArray[0]["published_at"][:10], 
+                           pub2 = newsAPI.newsArray[1]["published_at"][:10], 
+                           pub3 = newsAPI.newsArray[2]["published_at"][:10], 
+                           title1 = newsAPI.newsArray[0]["title"], 
+                           title2 = newsAPI.newsArray[1]["title"], 
+                           title3 = newsAPI.newsArray[2]["title"], 
+                           disc1 = newsAPI.newsArray[0]["description"], 
+                           disc2 = newsAPI.newsArray[1]["description"], 
+                           disc3 = newsAPI.newsArray[2]["description"],
+                           url1 = newsAPI.newsArray[0]["url"],
+                           url2 = newsAPI.newsArray[1]["url"],
+                           url3 = newsAPI.newsArray[2]["url"],
+                           source1 = newsAPI.newsArray[0]["source"],
+                           source2 = newsAPI.newsArray[1]["source"],
+                           source3 = newsAPI.newsArray[2]["source"],   
+                           company = stockAPI.returnName(stockAPI.symbolDate[0]),
+                           stockPriceDate = stockAPI.enddate
+                           )
 
 @app.route("/profile")
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', dataset = stockAPI.filteredData)
 
 @app.route("/story")
 def story():

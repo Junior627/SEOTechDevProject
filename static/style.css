@@ -8,17 +8,18 @@
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
 }
+.quicksand12 {
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+}
 .quicksandlight {
     color: #e9ecef;
     font-family: 'Quicksand', sans-serif;
     font-weight: 300;
 }
-.quicksandbig {
-    color: #f8f9fa;
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 300;
-    font-size: large;
-}
+
 .handJetHeader {
     font-family: 'Handjet', cursive;
     font-weight: 400;
@@ -131,10 +132,33 @@
     padding: 5px;
     padding-top: 2px;
 }
+.answerBox {
+    border: 0.5px solid #6c757d;
+    border-radius: 5px;
+    margin: 7vh;
+    margin-left: 5vh;
+    margin-right: 10vh;
+    height: 61vh;
+    text-align: center;
+    padding:20% 5% 20%;
+    
+
+}
 .border {
-    border: 5px solid red;
+    border:1px solid black
 }
 .choice {
     background-color: #dee2e6;
     width: 200px;
+}
+#cardOne {
+    margin-right: 5px;
+}
+.newsBox {
+    height: 70vh;
+    padding-top: 10%;
+}
+.max-height {
+    max-height: 350px;
+    overflow-y: scroll;
 }

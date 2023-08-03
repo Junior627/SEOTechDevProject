@@ -27,16 +27,15 @@
         <div class="col-4">
             <div class="m-5">
             <p class="quicksand">
-                <h4 class="quicksand">Google Stock</h4> 
+                <h4 class="quicksand">{{ company }} Stock</h4> 
                 <h2 class="quicksand">192.03 </h2>
 
                 
                 <h6 class="quicksand">
                 +9.32 past month
                 <br>
-                Tuesday October 19, 2012
+                {{ stockPriceDate }}
                     <br><br>
-                
                 <br>
                 Open - 190.2 <br>
                 Close - 193.04
@@ -49,49 +48,39 @@
         </div>
     </div>
     <div class="row mainPageStandard">
-        <div class="col-7 align-self-center">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6 card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
+        <div class="col-8 align-self-center">
+            <div class="container newsBox">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-5 card m-1 pt-4 pb-4 max-height" style="width: 16rem;">
+                        <div class="card-body" id="cardOne">
+                            <h5 class="quicksand12 card-title">{{ title1 }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ pub1 }}</h6>
+                            <a href="{{ url1 }}" target="_blank" class="card-link">{{ source1 }}</a>
+                            <p class="card-text">{{ disc1 }}</p>
                         </div>  
                     </div>
-                    <div class="col-6 card" style="width:18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                        </div>
+                    <div class="col-5 card m-1 pt-4 pb-4 max-height" style="width: 16rem;">
+                        <div class="card-body" id="cardOne">
+                            <h5 class="quicksand12 card-title">{{ title2 }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ pub2 }}</h6>
+                            <a href="{{ url2 }}" target="_blank"  class="card-link">{{ source2 }}</a>
+                            <p class="card-text">{{ disc2 }}</p>
+                        </div>  
                     </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-6 card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                        </div>
-                    </div>
-                    <div class="col-6 card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                        </div> 
+                    <div class="col-5 card m-1 pt-4 pb-4 max-height" style="width: 16rem;">
+                        <div class="card-body" id="cardOne">
+                            <h5 class="quicksand12 card-title">{{ title3 }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ pub3 }}</h6>
+                            <a href="{{ url3 }}" target="_blank" class="card-link">{{ source3 }}</a>
+                            <p class="card-text">{{ disc3 }}</p>
+                        </div>  
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-5">
-            <div class="p-5">
-                <h5>Within 4 weeks, the price of Google Inc. will?</h5>
+        <div class="col-4 p-0 ">
+            <div class="answerBox">
+                <h5>Within four weeks, the price of {{ company }} will?</h5>
                 <button type="button" class="btn choice mt-3">
                     Increase
                 </button>

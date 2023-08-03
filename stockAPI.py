@@ -1,7 +1,9 @@
 from datetime import datetime
+from datetime import date
 import json
 import requests
 import constants
+from newsAPI import retrieveDateCompany, requestInfo
 
 apikey = constants.api_key
 timezone = "America/New_York"
@@ -101,13 +103,41 @@ class stockAPI:
     def gettenincreaseDates(self):
         return self.parseDates(self.tenIncreaseDates)
     
-
 #Running Class Example
-apple = stockAPI("AAPL", "1day", 100, "2019-01-01", "2019-03-01")
-unfilteredData = apple.getDateAndAverage()
-filteredData = []
-for item in unfilteredData.items():
-    filteredData.append({"date":item[0],"value":item[1] })
+def getAPIdata():
+    global symbolDate, enddate, filteredData
+    requestInfo()
+    symbolDate = retrieveDateCompany()
+    if int(symbolDate[1]) == 1 or int(symbolDate[1]) == 2:
+        startdate =  date(int(symbolDate[2]), int(symbolDate[1])+10, 1)
+    else:
+        startdate =  date(int(symbolDate[2]), int(symbolDate[1])-2, 1)
+    enddate = date(int(symbolDate[2]), int(symbolDate[1]), 1)
+    stockData = stockAPI(symbolDate[0], "1day", 100, str(startdate), str(enddate))
+    unfilteredData = stockData.getDateAndAverage()
+    filteredData = []
+    for item in unfilteredData.items():
+        filteredData.append({"date":item[0],"value":item[1]})
+    
+
+def returnName(name):
+    match name:
+        case "AMZN":
+            return "Amazon"
+        case "GOOG":
+            return "Google"
+        case "AAPL":
+            return "Apple"
+        case "NVDA":
+            return "Nvidia"
+        case "MSFT":
+            return "Microsoft"
+        case "TSLA":
+            return "Tesla"
+        case _:
+            return "Error Check returnName"
+
+
 
 # apple = stockAPI("AAPL", "1month", 100, "2015-01-01", "2020-01-01")
 # apple.getDateAndAverage()

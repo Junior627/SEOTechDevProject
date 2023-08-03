@@ -16,7 +16,7 @@ const x = d3.scaleTime()
     .domain(d3.extent(datasets, d => d.date));
 const y = d3.scaleLinear()
     .range([height,0])
-    .domain([35, d3.max(datasets, d => d.value)]);
+    .domain([d3.min(datasets, d => d.value), d3.max(datasets, d => d.value)]);
 
 const svg = d3.select("#stockChart")
     .append("svg")
@@ -31,7 +31,7 @@ svg.append("g")
     .attr("transform", `translate(0,${height})`)
     .style("font-size", "12px")
     .call(d3.axisBottom(x)
-        .ticks(d3.timeDay.every(5))
+        .ticks(d3.timeDay.every(8))
         .tickFormat(d3.timeFormat("%b %d")))
     .selectAll(".tick line")
     .style("stroke", "#6c757d");
