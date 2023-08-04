@@ -104,8 +104,8 @@ class stockAPI:
         return self.parseDates(self.tenIncreaseDates)
     
 #Running Class Example
-def getAPIdata():
-    global symbolDate, enddate, filteredData
+def getAPIData():
+    global symbolDate, enddate, filteredData, symbolDate, startdate
     requestInfo()
     symbolDate = retrieveDateCompany()
     if int(symbolDate[1]) == 1 or int(symbolDate[1]) == 2:
@@ -113,12 +113,34 @@ def getAPIdata():
     else:
         startdate =  date(int(symbolDate[2]), int(symbolDate[1])-2, 1)
     enddate = date(int(symbolDate[2]), int(symbolDate[1]), 1)
-    stockData = stockAPI(symbolDate[0], "1day", 100, str(startdate), str(enddate))
+    stockData = stockAPI(symbolDate[0], "1day", 20, str(startdate), str(enddate))
     unfilteredData = stockData.getDateAndAverage()
     filteredData = []
     for item in unfilteredData.items():
         filteredData.append({"date":item[0],"value":item[1]})
     
+
+def getFutureData():
+    global rFinal
+    if int(symbolDate[1]) == 12 or int(symbolDate[1]) == 11:
+        endenddate =  date(int(symbolDate[2]), int(symbolDate[1])-10, 1)
+    else:
+        endenddate = date(int(symbolDate[2]), int(symbolDate[1])+2, 1)
+    payload = {
+        'start_date':enddate,
+        'end_date': endenddate,
+        'symbol': symbolDate[0], 
+        'interval':"1month", 
+        'outputsize':2,
+        'timezone':timezone, 
+        'apikey':apikey
+    }
+    # r holds the date, open, high, low, close, volume of the set date and a month after the set date
+    rFinal = requests.get('https://api.twelvedata.com/time_series', params=payload)
+    rFinal = rFinal.json()['values']
+    return (float(rFinal[0]['close']) - float(rFinal[1]['close']))/float(rFinal[1]['close'])
+    
+
 
 def returnName(name):
     match name:

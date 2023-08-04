@@ -21,7 +21,6 @@ def requestInfo():
     month = randomSelector(months)
     year = randomSelector(years)
     newsArray = []
-    print(year)
     url = f"https://api.marketaux.com/v1/news/all?symbols={symbol}&interval=month&published_before={year}-{month}&filter_entities=true&language=en&api_token={SECRET_KEY}"
     response = requests.get(url)
     news = response.json()

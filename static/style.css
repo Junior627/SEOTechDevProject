@@ -151,6 +151,7 @@
     background-color: #dee2e6;
     width: 200px;
 }
+
 #cardOne {
     margin-right: 5px;
 }
@@ -162,3 +163,4 @@
     max-height: 350px;
     overflow-y: scroll;
 }
+

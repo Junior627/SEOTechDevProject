@@ -46,10 +46,16 @@
     <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
 
     <script>
-    const datasets = {{ dataset|tojson }}
-    // console.log(datas)
+    const datasets = {{ dataset|tojson }};
+    const changePrice = {{ change|tojson }};
+
+    console.log(datasets)
+    console.log(changePrice)
+
+
     </script>
     {% endblock %}
     <script src="../static/scripts/charts.js"></script>
+    <script src="../static/scripts/main.js"></script>
 </body>
 </html>

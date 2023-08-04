@@ -39,9 +39,10 @@ def newsTrial():
 @app.route("/")
 @app.route("/home")
 def homepage():
-    stockAPI.getAPIdata()
+    stockAPI.getAPIData()
     return render_template('home.html', 
                            dataset = stockAPI.filteredData, 
+                           change = stockAPI.getFutureData(),
                            pub1 = newsAPI.newsArray[0]["published_at"][:10], 
                            pub2 = newsAPI.newsArray[1]["published_at"][:10], 
                            pub3 = newsAPI.newsArray[2]["published_at"][:10], 
@@ -58,7 +59,20 @@ def homepage():
                            source2 = newsAPI.newsArray[1]["source"],
                            source3 = newsAPI.newsArray[2]["source"],   
                            company = stockAPI.returnName(stockAPI.symbolDate[0]),
-                           stockPriceDate = stockAPI.enddate
+
+                           stockDateCurrent = stockAPI.rFinal[1]['datetime'],
+                           openPriceCurrent = stockAPI.rFinal[1]['open'],
+                           closePriceCurrent = stockAPI.rFinal[1]['close'],
+                           highPriceCurrent = stockAPI.rFinal[1]['high'],
+                           lowPriceCurrent = stockAPI.rFinal[1]['low'],
+                           volumeCurrent = stockAPI.rFinal[1]['volume'],
+
+                           stockDateFuture = stockAPI.rFinal[0]['datetime'],
+                           openPriceFuture = stockAPI.rFinal[0]['open'],
+                           closePriceFuture = stockAPI.rFinal[0]['close'],
+                           highPriceFuture = stockAPI.rFinal[0]['high'],
+                           lowPriceFuture = stockAPI.rFinal[0]['low'],
+                           volumeFuture = stockAPI.rFinal[0]['volume']
                            )
 
 @app.route("/profile")
