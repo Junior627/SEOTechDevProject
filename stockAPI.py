@@ -103,6 +103,14 @@ class stockAPI:
     def gettenincreaseDates(self):
         return self.parseDates(self.tenIncreaseDates)
     
+    def filterData(self):
+        unfilteredData = self.getDateAndAverage()
+        global filteredData
+        filteredData = []
+        for item in unfilteredData.items():
+            filteredData.append({"date":item[0],"value":item[1] })
+        return filteredData
+    
 #Running Class Example
 def getAPIData():
     global symbolDate, enddate, filteredData, symbolDate, startdate

@@ -4,19 +4,25 @@ from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-import stockAPI
-import newsAPI
+import constants
+from stockAPI import *
+
 
 
 app = Flask(__name__)
 proxied = FlaskBehindProxy(app)
-app.config['SECRET_KEY']= 'b5e8834370808fe7be05c5ae699014e4'
+app.config['SECRET_KEY']= constants.db_key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-i =0
+score =0
 currentuserID = ''
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+stockOpen =0
+stockClose =0
+updatedParams = []
+
+newsDict ={}   
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,13 +39,31 @@ with app.app_context():
 
 @app.route("/news")
 def newsTrial():
-    newsAPI.requestInfo()
-    return render_template('NewsBlock.html', pub1 =newsAPI.newsArray[0]["published_at"], pub2 = newsAPI.newsArray[1]["published_at"], pub3 = newsAPI.newsArray[2]["published_at"], title1 = newsAPI.newsArray[0]["title"], title2= newsAPI.newsArray[1]["title"], title3= newsAPI.newsArray[2]["title"], disc1 = newsAPI.newsArray[0]["description"], disc2 = newsAPI.newsArray[1]["description"], disc3  = newsAPI.newsArray[2]["description"] )
+    global newsDict
+    newsDict={}
+    newsDict={
+        'symbol': newsAPI.newsArray[0]["entities"][0]["name"],
+        'pub1': newsAPI.newsArray[0]["published_at"], 
+        'pub2' : newsAPI.newsArray[1]["published_at"], 
+        'pub3' : newsAPI.newsArray[2]["published_at"], 
+        'title1' : newsAPI.newsArray[0]["title"], 
+        'title2' : newsAPI.newsArray[1]["title"], 
+        'title3' : newsAPI.newsArray[2]["title"], 
+        'disc1' : newsAPI.newsArray[0]["description"], 
+        'disc2' : newsAPI.newsArray[1]["description"], 
+        'disc3' : newsAPI.newsArray[2]["description"],
+        'link1' : newsAPI.newsArray[0]["url"], 
+        'link2' : newsAPI.newsArray[1]["url"], 
+        'link3' : newsAPI.newsArray[2]["url"]
+    }
 
+    return "Updated"
+    
 @app.route("/")
 @app.route("/home")
 def homepage():
     stockAPI.getAPIData()
+    UpdateStockParams()
     return render_template('home.html', 
                            dataset = stockAPI.filteredData, 
                            change = stockAPI.getFutureData(),
@@ -82,6 +106,64 @@ def profile():
 @app.route("/story")
 def story():
     return render_template('story.html')
+
+@app.route("/stocksUpdate")
+def UpdateStockParams():
+    global stockClose
+    global stockOpen
+    global stockParams
+    global updatedParams
+
+    newsAPI.requestInfo()
+    startDate = newsAPI.Year+"-"+newsAPI.Month+"-01"
+    endDate = newsAPI.nextYear+"-"+newsAPI.nextMonth+"-01"
+    print(startDate)
+    print(endDate)
+    print(newsAPI.symbol)
+    stockParams = stockAPI(newsAPI.symbol, "1day", 100, startDate, endDate)
+    print(stockParams)
+    updatedParams = stockParams.filterData()
+    print(updatedParams)
+    newsTrial()
+
+    stockClose= float(updatedParams[0]["value"])
+    stockOpen = float(updatedParams[len(updatedParams)-1]["value"])
+    print(stockOpen)
+    print(stockClose)
+    return("Updated")
+
+@app.route("/HigherCheck")
+def CheckStockDiff_H():
+    if stockOpen < stockClose:
+        UpdateScore()
+        print("Correct!")
+    else:
+        print("Incorrect.")
+    homepage()
+    return render_template('home.html',dataset= updatedParams, **newsDict)
+
+@app.route("/LowerCheck")
+def CheckStockDiff_L():
+    print("worked_L")
+    if stockOpen > stockClose:
+        UpdateScore()
+        print("Correct!")
+    else:
+        print("Incorrect.")
+    homepage()
+    return render_template('home.html',dataset= updatedParams, **newsDict)
+
+@app.route("/SameCheck")
+def CheckStockDiff_S():
+    print("worked_S")
+    if stockOpen == stockClose:
+        UpdateScore()
+        print("Correct!")
+    else:
+        print("Incorrect.")
+    homepage()
+    return render_template('home.html',dataset= updatedParams, **newsDict)
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
