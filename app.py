@@ -5,8 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 import constants
-from stockAPI import *
-
+import newsAPI
+import stockAPI
 
 
 app = Flask(__name__)
@@ -37,36 +37,17 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
-@app.route("/news")
-def newsTrial():
-    global newsDict
-    newsDict={}
-    newsDict={
-        'symbol': newsAPI.newsArray[0]["entities"][0]["name"],
-        'pub1': newsAPI.newsArray[0]["published_at"], 
-        'pub2' : newsAPI.newsArray[1]["published_at"], 
-        'pub3' : newsAPI.newsArray[2]["published_at"], 
-        'title1' : newsAPI.newsArray[0]["title"], 
-        'title2' : newsAPI.newsArray[1]["title"], 
-        'title3' : newsAPI.newsArray[2]["title"], 
-        'disc1' : newsAPI.newsArray[0]["description"], 
-        'disc2' : newsAPI.newsArray[1]["description"], 
-        'disc3' : newsAPI.newsArray[2]["description"],
-        'link1' : newsAPI.newsArray[0]["url"], 
-        'link2' : newsAPI.newsArray[1]["url"], 
-        'link3' : newsAPI.newsArray[2]["url"]
-    }
-
-    return "Updated"
     
 @app.route("/")
 @app.route("/home")
 def homepage():
-    stockAPI.getAPIData()
-    UpdateStockParams()
+    filteredData = stockAPI.getAPIData()
+    # UpdateStockParams()
     return render_template('home.html', 
-                           dataset = stockAPI.filteredData, 
+                           dataset = filteredData, 
                            change = stockAPI.getFutureData(),
+                           updatedDataset = stockAPI.getFutureDetails(),
+
                            pub1 = newsAPI.newsArray[0]["published_at"][:10], 
                            pub2 = newsAPI.newsArray[1]["published_at"][:10], 
                            pub3 = newsAPI.newsArray[2]["published_at"][:10], 
@@ -106,31 +87,6 @@ def profile():
 @app.route("/story")
 def story():
     return render_template('story.html')
-
-@app.route("/stocksUpdate")
-def UpdateStockParams():
-    global stockClose
-    global stockOpen
-    global stockParams
-    global updatedParams
-
-    newsAPI.requestInfo()
-    startDate = newsAPI.Year+"-"+newsAPI.Month+"-01"
-    endDate = newsAPI.nextYear+"-"+newsAPI.nextMonth+"-01"
-    print(startDate)
-    print(endDate)
-    print(newsAPI.symbol)
-    stockParams = stockAPI(newsAPI.symbol, "1day", 100, startDate, endDate)
-    print(stockParams)
-    updatedParams = stockParams.filterData()
-    print(updatedParams)
-    newsTrial()
-
-    stockClose= float(updatedParams[0]["value"])
-    stockOpen = float(updatedParams[len(updatedParams)-1]["value"])
-    print(stockOpen)
-    print(stockClose)
-    return("Updated")
 
 @app.route("/HigherCheck")
 def CheckStockDiff_H():

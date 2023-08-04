@@ -17,6 +17,9 @@ Year=""
 nextYear=""
 Day="01"
 
+def retrieveDateCompany():
+    return [symbol, Month, Year]
+
 def requestInfo():
     global newsArray, symbol, Month, Year
     newsArray = []

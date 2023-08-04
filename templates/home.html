@@ -81,6 +81,18 @@
         <div class="col-4 p-0 ">
             <div class="answerBox">
                 <h5>Within four weeks, the price of {{ company }} will?</h5>
+                <button type="button" class="btn buttonUnanswered mt-3" onclick="drawChart()" id="button1">
+                    Increase
+                </button>
+                <br>
+                <button type="button" class="btn buttonUnanswered mt-3" onclick="removeChart()" id="button2">
+                    Remains the same
+                </button>
+                <br>
+                <button type="button" class="btn buttonUnanswered mt-3" onclick="updateChart()" id="button3">
+                    Decrease
+                </button>
+                <!-- 
                <script type=text/javascript>
                     $(function() {
                       $('a#Increase').on('click', function(e) {
@@ -127,7 +139,7 @@
                 </script>
                 <a href=# id="Decrease"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
                     Decrease
-                </button></a>
+                </button></a> -->
             </div>
         </div>
     </div>

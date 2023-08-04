@@ -105,7 +105,6 @@ class stockAPI:
     
     def filterData(self):
         unfilteredData = self.getDateAndAverage()
-        global filteredData
         filteredData = []
         for item in unfilteredData.items():
             filteredData.append({"date":item[0],"value":item[1] })
@@ -113,30 +112,28 @@ class stockAPI:
     
 #Running Class Example
 def getAPIData():
-    global symbolDate, enddate, filteredData, symbolDate, startdate
+    global symbolDate, enddate, filteredData, symbolDate, startDate
     requestInfo()
     symbolDate = retrieveDateCompany()
-    if int(symbolDate[1]) == 1 or int(symbolDate[1]) == 2:
-        startdate =  date(int(symbolDate[2]), int(symbolDate[1])+10, 1)
+    if int(symbolDate[1]) == 1:
+        startDate =  date(int(symbolDate[2]), int(symbolDate[1])+11, 1)
     else:
-        startdate =  date(int(symbolDate[2]), int(symbolDate[1])-2, 1)
+        startDate =  date(int(symbolDate[2]), int(symbolDate[1])-1, 1)
     enddate = date(int(symbolDate[2]), int(symbolDate[1]), 1)
-    stockData = stockAPI(symbolDate[0], "1day", 20, str(startdate), str(enddate))
-    unfilteredData = stockData.getDateAndAverage()
-    filteredData = []
-    for item in unfilteredData.items():
-        filteredData.append({"date":item[0],"value":item[1]})
-    
+    stockData = stockAPI(symbolDate[0], "1day", 20, str(startDate), str(enddate))
+    return stockData.filterData()
 
+# startDate and endDate specify the interval for the stock graph in the question stage
+# once the question is answered, the graph is updated to included a month into the future. That date is endenddate.
 def getFutureData():
-    global rFinal
-    if int(symbolDate[1]) == 12 or int(symbolDate[1]) == 11:
-        endenddate =  date(int(symbolDate[2]), int(symbolDate[1])-10, 1)
+    global rFinal,endendDate
+    if int(symbolDate[1]) == 12:
+        endendDate =  date(int(symbolDate[2]), int(symbolDate[1])-11, 1)
     else:
-        endenddate = date(int(symbolDate[2]), int(symbolDate[1])+2, 1)
+        endendDate = date(int(symbolDate[2]), int(symbolDate[1])+1, 1)
     payload = {
         'start_date':enddate,
-        'end_date': endenddate,
+        'end_date': endendDate,
         'symbol': symbolDate[0], 
         'interval':"1month", 
         'outputsize':2,
@@ -147,8 +144,10 @@ def getFutureData():
     rFinal = requests.get('https://api.twelvedata.com/time_series', params=payload)
     rFinal = rFinal.json()['values']
     return (float(rFinal[0]['close']) - float(rFinal[1]['close']))/float(rFinal[1]['close'])
-    
 
+def getFutureDetails():
+    stockParams = stockAPI(symbolDate[0], "1day", 20, startDate, endendDate)
+    return stockParams.filterData()
 
 def returnName(name):
     match name:

@@ -147,9 +147,20 @@
 .border {
     border:1px solid black
 }
-.choice {
+.buttonUnanswered {
     background-color: #dee2e6;
     width: 200px;
+}
+.buttonCorrect {
+    background-color: #c1d7ae;
+    width: 200px;
+    color: #b6b8ba;
+}
+.buttonWrong {
+    background-color: #d7aeae;
+    width: 200px;
+    color: #96989b;
+
 }
 
 #cardOne {
