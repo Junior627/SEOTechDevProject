@@ -46,9 +46,9 @@
     <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
 
     <script>
-    const data = {{ dataset|tojson }};
+    var data = {{ dataset|tojson }};
     const changePrice = {{ change|tojson }};
-    const updatedData = {{ updatedDataset|tojson }};
+    var updatedData = {{ updatedDataset|tojson }};
 
     console.log(data)
     console.log(changePrice)

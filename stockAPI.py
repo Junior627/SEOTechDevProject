@@ -29,10 +29,14 @@ class stockAPI:
     def getDateAndAverage(self):
         # average is x while date is y
         rawdata = self.r.json()
-        for datapoint in rawdata['values']:
-            average = (float(datapoint['high'])+ float(datapoint['low']))/2
-            average = round(average, 8)
-            self.dataDateAverage[datapoint['datetime']] = average
+        try:
+            for datapoint in rawdata['values']:
+                average = (float(datapoint['high'])+ float(datapoint['low']))/2
+                average = round(average, 8)
+                self.dataDateAverage[datapoint['datetime']] = average
+        except:
+            print(rawdata)
+            print("getDateAndAverage Function ")
         return self.dataDateAverage
 
     def printdata(self):
@@ -116,7 +120,7 @@ def getAPIData():
     requestInfo()
     symbolDate = retrieveDateCompany()
     if int(symbolDate[1]) == 1:
-        startDate =  date(int(symbolDate[2]), int(symbolDate[1])+11, 1)
+        startDate =  date(int(symbolDate[2])-1, int(symbolDate[1])+11, 1)
     else:
         startDate =  date(int(symbolDate[2]), int(symbolDate[1])-1, 1)
     enddate = date(int(symbolDate[2]), int(symbolDate[1]), 1)
@@ -126,14 +130,14 @@ def getAPIData():
 # startDate and endDate specify the interval for the stock graph in the question stage
 # once the question is answered, the graph is updated to included a month into the future. That date is endenddate.
 def getFutureData():
-    global rFinal,endendDate
-    if int(symbolDate[1]) == 12:
-        endendDate =  date(int(symbolDate[2]), int(symbolDate[1])-11, 1)
+    global rFinal
+    if int(symbolDate[1]) == 12 or int(symbolDate[1]) == 11:
+        endendendDate =  date(int(symbolDate[2])+1, int(symbolDate[1])-10, 1)
     else:
-        endendDate = date(int(symbolDate[2]), int(symbolDate[1])+1, 1)
+        endendendDate = date(int(symbolDate[2]), int(symbolDate[1])+2, 1)
     payload = {
         'start_date':enddate,
-        'end_date': endendDate,
+        'end_date': endendendDate,
         'symbol': symbolDate[0], 
         'interval':"1month", 
         'outputsize':2,
@@ -142,11 +146,31 @@ def getFutureData():
     }
     # r holds the date, open, high, low, close, volume of the set date and a month after the set date
     rFinal = requests.get('https://api.twelvedata.com/time_series', params=payload)
-    rFinal = rFinal.json()['values']
-    return (float(rFinal[0]['close']) - float(rFinal[1]['close']))/float(rFinal[1]['close'])
+    try:
+        rFinal = rFinal.json()['values']
+        return (float(rFinal[0]['close']) - float(rFinal[1]['close']))/float(rFinal[1]['close'])
+    except:
+        print("rFinal")
+        print("start Date")
+        print(enddate)
+        print("End Date")
+        print(endendendDate)
+        print(rFinal.json())
+    
 
 def getFutureDetails():
-    stockParams = stockAPI(symbolDate[0], "1day", 20, startDate, endendDate)
+    if int(symbolDate[1]) == 12:
+        endendDate =  date(int(symbolDate[2])+1, int(symbolDate[1])-11, 1)
+    else:
+        endendDate = date(int(symbolDate[2]), int(symbolDate[1])+1, 1)
+    stockParams = stockAPI(symbolDate[0], "1day", 60, startDate, endendDate)
+    print("rFinal")
+    print("start Date")
+    print(startDate)
+    print("End Date")
+    print(enddate)
+    print("End END Date")
+    print(endendDate)
     return stockParams.filterData()
 
 def returnName(name):
