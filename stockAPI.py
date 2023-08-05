@@ -39,6 +39,9 @@ class stockAPI:
             print("getDateAndAverage Function ")
         return self.dataDateAverage
 
+    def returnJson(self):
+        return self.r.json()
+    
     def printdata(self):
         print("Data")
         print(" ")
@@ -130,7 +133,7 @@ def getAPIData():
 # startDate and endDate specify the interval for the stock graph in the question stage
 # once the question is answered, the graph is updated to included a month into the future. That date is endenddate.
 def getFutureData():
-    global rFinal
+    global rValues, rMeta
     if int(symbolDate[1]) == 12 or int(symbolDate[1]) == 11:
         endendendDate =  date(int(symbolDate[2])+1, int(symbolDate[1])-10, 1)
     else:
@@ -147,15 +150,16 @@ def getFutureData():
     # r holds the date, open, high, low, close, volume of the set date and a month after the set date
     rFinal = requests.get('https://api.twelvedata.com/time_series', params=payload)
     try:
-        rFinal = rFinal.json()['values']
-        return (float(rFinal[0]['close']) - float(rFinal[1]['close']))/float(rFinal[1]['close'])
+        rValues = rFinal.json()['values']
+        rMeta = rFinal.json()['meta']
+        return (float(rValues[0]['close']) - float(rValues[1]['close']))/float(rValues[1]['close'])
     except:
         print("rFinal")
         print("start Date")
         print(enddate)
         print("End Date")
         print(endendendDate)
-        print(rFinal.json())
+        print(rValues.json())
     
 
 def getFutureDetails():
@@ -173,20 +177,26 @@ def getFutureDetails():
     print(endendDate)
     return stockParams.filterData()
 
-def returnName(name):
+def returnName(name, shorten):
     match name:
         case "AMZN":
-            return "Amazon"
+            if (shorten == 1): return "Amazon"
+            return "Amazon.com, Inc"
         case "GOOG":
-            return "Google"
+            if(shorten == 1): return "Google"
+            return "Alphabet Inc"
         case "AAPL":
-            return "Apple"
+            if(shorten == 1): return "Apple"
+            return "Apple Inc"
         case "NVDA":
-            return "Nvidia"
+            if(shorten == 1): return "Nvidia"
+            return "NVIDIA Corp"
         case "MSFT":
-            return "Microsoft"
+            if(shorten == 1): return "Microsoft"
+            return "Microsoft Corp"
         case "TSLA":
-            return "Tesla"
+            if(shorten == 1): return "Tesla"
+            return "Tesla Inc"
         case _:
             return "Error Check returnName"
 

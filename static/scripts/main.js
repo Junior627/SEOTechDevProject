@@ -119,6 +119,7 @@ function removeChart(){
     horizontalLines.remove();
 }
 
+function updateHTMLInfo(){}
 chart1();
 function answered() {
     var button1 = document.getElementById('button1');

@@ -63,21 +63,24 @@ def homepage():
                            source1 = newsAPI.newsArray[0]["source"],
                            source2 = newsAPI.newsArray[1]["source"],
                            source3 = newsAPI.newsArray[2]["source"],   
-                           company = stockAPI.returnName(stockAPI.symbolDate[0]),
 
-                           stockDateCurrent = stockAPI.rFinal[1]['datetime'],
-                           openPriceCurrent = stockAPI.rFinal[1]['open'],
-                           closePriceCurrent = stockAPI.rFinal[1]['close'],
-                           highPriceCurrent = stockAPI.rFinal[1]['high'],
-                           lowPriceCurrent = stockAPI.rFinal[1]['low'],
-                           volumeCurrent = stockAPI.rFinal[1]['volume'],
+                           company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
+                           companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
+                           stockType = stockAPI.rMeta['type'], 
 
-                           stockDateFuture = stockAPI.rFinal[0]['datetime'],
-                           openPriceFuture = stockAPI.rFinal[0]['open'],
-                           closePriceFuture = stockAPI.rFinal[0]['close'],
-                           highPriceFuture = stockAPI.rFinal[0]['high'],
-                           lowPriceFuture = stockAPI.rFinal[0]['low'],
-                           volumeFuture = stockAPI.rFinal[0]['volume']
+                           stockDateCurrent = stockAPI.rValues[1]['datetime'],
+                           openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
+                           closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
+                           highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
+                           lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
+                           volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
+
+                           stockDateFuture = stockAPI.rValues[0]['datetime'],
+                           openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
+                           closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
+                           highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
+                           lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
+                           volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
                            )
 
 @app.route("/profile")
@@ -179,6 +182,9 @@ def UpdateScore():
     print(update_user)
     update_user.streakScore = update_user.streakScore + 1
     db.session.commit()
+
+def roundTwo(num):
+    return (round(num*100))/100
 
 if __name__ == '__main__':
     app.run(debug=True)

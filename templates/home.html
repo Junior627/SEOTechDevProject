@@ -25,14 +25,29 @@
     </div>
     <div class="row mainPageBlack">
         <div class="col-4">
-            <div class="m-5">
-            <p class="quicksand">
-                <h4 class="quicksand">{{ company }} Stock</h4> 
+            <div class="m-5 quicksand">
+            <p style="font-size: x-large;">{{ companyLong }}</p>
+            <p style="font-size: xx-large;">{{ closePriceCurrent }}</p>
+            <br>
+            <p style="font-size: larger;">{{ stockDateCurrent }}</p>
+            <div class="row" id="stockInfo">
+                <div class="col-6">
+                    <p style="font-size: medium;">Open   <span style="font-weight: 300;">{{ openPriceCurrent }}</span></p>
+                    <p style="font-size: medium;">Close   <span style="font-weight: 300;">{{ closePriceCurrent }}</span></p>
+                </div>
+                <div class="col-6">
+                    <p style="font-size: medium;">High   <span style="font-weight: 300;">{{ highPriceCurrent }}</span></p>
+                    <p style="font-size: medium;">Low   <span style="font-weight: 300;">{{ lowPriceCurrent }}</span></p>
+                </div>
+            </div>
+            <p style="font-size: medium;">Volume  <span style="font-weight: 300;">{{ volumeCurrent }}</span></p>
+
+            <!-- <p class="quicksand">
                 <h2 class="quicksand">192.03 </h2>
 
                 
                 <h6 class="quicksand">
-                +9.32 past month
+                {} past month
                 <br>
                 {{ stockDateCurrent }}
                     <br><br>
@@ -40,14 +55,9 @@
                 Current
                 Open - {{ openPriceCurrent }} <br>
                 Close - {{ closePriceCurrent }}
-                <br>
-                Future
-                Open - {{ openPriceFuture }} <br>
-                Close - {{ closePriceFuture }}
-                <br>
-                Change - {{ change }}
+                
                 </h6>  
-            </p>
+            </p> -->
             </div>
         </div>
         <div class="col-8">
