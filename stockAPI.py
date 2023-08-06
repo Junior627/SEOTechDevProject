@@ -127,7 +127,7 @@ def getAPIData():
     else:
         startDate =  date(int(symbolDate[2]), int(symbolDate[1])-1, 1)
     enddate = date(int(symbolDate[2]), int(symbolDate[1]), 1)
-    stockData = stockAPI(symbolDate[0], "1day", 20, str(startDate), str(enddate))
+    stockData = stockAPI(symbolDate[0], "1day", 60, str(startDate), str(enddate))
     return stockData.filterData()
 
 # startDate and endDate specify the interval for the stock graph in the question stage

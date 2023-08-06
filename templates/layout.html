@@ -46,10 +46,9 @@
     <script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
 
     <script>
-    var data = {{ dataset|tojson }};
+    var data1 = {{ dataset|tojson }};
     var changePrice = {{ change|tojson }};
-    var updatedData = {{ updatedDataset|tojson }};
-
+    var data2 = {{ updatedDataset|tojson }};
     var closeCurrent = "{{ closePriceCurrent }}"
     var dateFuture = "{{ stockDateFuture}}";
     var closeFuture = "{{ closePriceFuture }}";
@@ -57,8 +56,6 @@
     var highFuture = "{{ highPriceFuture }}";
     var lowFuture = "{{ lowPriceFuture }}";
     var volumeFuture = "{{ volumePriceFuture }}";
-    console.log(data)
-    console.log(changePrice)
 
 
     </script>

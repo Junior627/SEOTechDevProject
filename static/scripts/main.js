@@ -9,7 +9,7 @@ const marginTop = 30;
 const marginRight = 30;
 const marginBottom = 30;
 const marginLeft = 30;
-var data1 = updatedData;
+
 var svg = d3.select("#stockChart")
 .append("svg")
     .attr("width", width + marginRight + marginLeft)
@@ -17,18 +17,24 @@ var svg = d3.select("#stockChart")
 .append("g")
     .attr("transform", `translate(${marginLeft}, ${marginRight})`);
 
-for(let index = 0; index < data.length; index++){
-    data[index]["date"] = new Date(data[index]["date"])
-}
 
 for(let index = 0; index < data1.length; index++){
     data1[index]["date"] = new Date(data1[index]["date"])
 }
-console.log(data)
+
 var area, line, horizontalLines;
-function drawbasic(data, xSpacing){
-    var x = d3.scaleTime(d3.extent(data, d => d.date), [0, width]);
-    var y = d3.scaleLinear([d3.min(data, d => d.value), d3.max(data, d => d.value)], [height,0]);
+function drawbasic(data, xSpacing, color){
+    for(let index = 0; index < data.length; index++){
+        data[index]["date"] = new Date(data[index]["date"])
+    }
+    console.log(data);
+    startDate = d3.min(data, d => d.date);
+    endDate =  d3.max(data, d => d.date);
+    startValue = d3.min(data, d => d.value);
+    endValue =  d3.max(data, d => d.value);
+    var x = d3.scaleTime([startDate, endDate], [0, width]);
+    var y = d3.scaleLinear([startValue, endValue], [height,0]);
+    
     // x axis
     if(xSpacing === "every8"){
         svg.append("g")
@@ -66,12 +72,25 @@ function drawbasic(data, xSpacing){
     horizontalLines = svg.selectAll("gH")
         .data(y.ticks().slice(1))
         .join("line")
-        .attr("y1", d => y(d))
-        .attr("y2", d => y(d))
-        .attr("x1", 0)
-        .attr("x2", width)
+        .attr("y1", d => y(d)).attr("y2", d => y(d))
+        .attr("x1", 0).attr("x2", width)
         .attr("stroke", "#6c757d")
         .attr("stroke-width", 0.5);
+    //gradient 
+    if (color === "red")
+    {var gradient = svg.append("defs")
+    .append("linearGradient")
+    .attr("id", "gradient")
+    .attr("gradientTransform", "rotate("+90+")")
+    gradient.append("stop").attr("offset", "50%").attr("stop-color", "#eeb3a3");
+    gradient.append("stop").attr("offset", "80%").attr("stop-color", "grey");}
+    if (color === "green")
+    {var gradient = svg.append("defs")
+    .append("linearGradient")
+    .attr("id", "gradient")
+    .attr("gradientTransform", "rotate("+90+")")
+    gradient.append("stop").attr("offset", "50%").attr("stop-color", "#aeeea3");
+    gradient.append("stop").attr("offset", "80%").attr("stop-color", "grey");}
     // area under line
     area = d3.area()
         .x(d => x(d.date))
@@ -82,35 +101,59 @@ function drawbasic(data, xSpacing){
         .y(d => y(d.value));
 }
 function chart1(){
-    drawbasic(data, "every4");
+    drawbasic(data1, "every4", "null");
     areaChart = svg.append("path")
-        .data([data])
+        .data([data1])
         .attr("fill", "#adb5bd")
         .style("opacity", 0.6)
         .attr("d", area);
 
-
     lineChart = svg.append("path")
-        .data([data], )
+        .data([data1], )
         .attr("fill", "none")
         .attr("stroke", "#adb5bd")
         .attr("stroke-width", 1)
         .attr("d", line);
 }
-function chart2(){
-    drawbasic(data1, "every8")
+function chart2(color){
+    drawbasic(data2, "every8", color)
+    if(color === "grey"){
+        areaChart = svg.append("path")
+            .data([data2])
+            .style("opacity", 0.6)
+            .attr("d", area)
+            .attr("fill", "#adb5bd");
+    }
     areaChart = svg.append("path")
-        .data([data1])
-        .attr("fill", "#adb5bd")
+        .data([data2])
         .style("opacity", 0.6)
-        .attr("d", area);
-    lineChart = svg.append("path")
-        .data([data1])
+        .attr("d", area)
+        .attr("fill",  "url(#gradient)");
+
+    if(color === "grey"){
+        lineChart = svg.append("path")
+        .data([data2])
         .attr("fill", "none")
-        .attr("stroke", "#adb5bd")
         .attr("stroke-width", 1)
-        .attr("d", line);
-    
+        .attr("d", line)
+        .attr("stroke", "#a3beee");
+    }
+    else if(color === "green"){
+        lineChart = svg.append("path")
+        .data([data2])
+        .attr("fill", "none")
+        .attr("stroke-width", 1)
+        .attr("d", line)
+        .attr("stroke", "#aeeea3");
+    }
+    else{
+    lineChart = svg.append("path")
+        .data([data2])
+        .attr("fill", "none")
+        .attr("stroke-width", 1)
+        .attr("d", line)
+        .attr("stroke", "#eeb3a3");
+    }
 }
 function removeChart(){
     svg.selectAll("path").remove();
@@ -153,29 +196,33 @@ function answered() {
     var button3 = document.getElementById('button3');
     console.log("clicked")
     console.log(changePrice)
+    document.querySelector('#button1').disabled = true;
+    document.querySelector('#button2').disabled = true;
+    document.querySelector('#button3').disabled = true;
+    removeChart();
+
     if (changePrice < 0){
         button1.classList.replace("buttonUnanswered", "buttonWrong");
         button2.classList.replace("buttonUnanswered", "buttonWrong");
         button3.classList.replace("buttonUnanswered", "buttonCorrect");
         console.log("third")
+        chart2("red");
     }
     else if (changePrice < 4 && changePrice > 0){
         button1.classList.replace("buttonUnanswered", "buttonWrong");
         button2.classList.replace("buttonUnanswered", "buttonCorrect");
         button3.classList.replace("buttonUnanswered", "buttonWrong");
         console.log("second")
+        chart2("grey")
     }
     else {
         button1.classList.replace("buttonUnanswered", "buttonCorrect");
         button2.classList.replace("buttonUnanswered", "buttonWrong");
         button3.classList.replace("buttonUnanswered", "buttonWrong");
         console.log("first")
+        chart2("green")
     }
-    document.querySelector('#button1').disabled = true;
-    document.querySelector('#button2').disabled = true;
-    document.querySelector('#button3').disabled = true;
-    removeChart();
-    chart2();
+
     updateHTMLInfo();
     nextButton();
 }
