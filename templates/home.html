@@ -25,39 +25,22 @@
     </div>
     <div class="row mainPageBlack">
         <div class="col-4">
-            <div class="m-5 quicksand">
-            <p style="font-size: x-large;">{{ companyLong }}</p>
-            <p style="font-size: xx-large;">{{ closePriceCurrent }}</p>
-            <br>
-            <p style="font-size: larger;">{{ stockDateCurrent }}</p>
-            <div class="row" id="stockInfo">
-                <div class="col-6">
-                    <p style="font-size: medium;">Open   <span style="font-weight: 300;">{{ openPriceCurrent }}</span></p>
-                    <p style="font-size: medium;">Close   <span style="font-weight: 300;">{{ closePriceCurrent }}</span></p>
-                </div>
-                <div class="col-6">
-                    <p style="font-size: medium;">High   <span style="font-weight: 300;">{{ highPriceCurrent }}</span></p>
-                    <p style="font-size: medium;">Low   <span style="font-weight: 300;">{{ lowPriceCurrent }}</span></p>
-                </div>
-            </div>
-            <p style="font-size: medium;">Volume  <span style="font-weight: 300;">{{ volumeCurrent }}</span></p>
-
-            <!-- <p class="quicksand">
+            <div class="m-5">
+            <p class="quicksand">
+                <h4 class="quicksand">{{ company }} Stock</h4> 
                 <h2 class="quicksand">192.03 </h2>
 
                 
                 <h6 class="quicksand">
-                {} past month
+                +9.32 past month
                 <br>
-                {{ stockDateCurrent }}
+                {{ stockPriceDate }}
                     <br><br>
                 <br>
-                Current
-                Open - {{ openPriceCurrent }} <br>
-                Close - {{ closePriceCurrent }}
-                
+                Open - 190.2 <br>
+                Close - 193.04
                 </h6>  
-            </p> -->
+            </p>
             </div>
         </div>
         <div class="col-8">
@@ -65,6 +48,15 @@
         </div>
     </div>
     <div class="row mainPageStandard">
+
+        {% if loggedUser == "" %}
+            <p>Hello, user.</p>
+            {% else %}
+            <p>Hello, {{loggedUser}}!</p>
+        {% endif %}
+        <p>Your Highest Streak: {{loggedScore}}</p>
+
+
         <div class="col-8 align-self-center">
             <div class="container newsBox">
                 <div class="row d-flex justify-content-center">
@@ -109,54 +101,6 @@
                 <button type="button" class="btn buttonUnanswered mt-3" onclick="answered()" id="button3">
                     Decrease
                 </button>
-                <!-- 
-               <script type=text/javascript>
-                    $(function() {
-                      $('a#Increase').on('click', function(e) {
-                        e.preventDefault()
-                        $.getJSON('/HigherCheck',
-                            function(data) {
-                          //do nothing
-                        });
-                        return false;
-                      });
-                    });
-                </script>
-                <a href=# id="Increase"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
-                    Increase
-                </button></a>
-                <br>
-                <script type=text/javascript>
-                    $(function() {
-                      $('a#Stagnant').on('click', function(e) {
-                        e.preventDefault()
-                        $.getJSON('/SameCheck',
-                            function(data) {
-                          //do nothing
-                        });
-                        return false;
-                      });
-                    });
-                </script>
-                <a href=# id="Stagnant"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
-                    Remains the same
-                </button></a>
-                <br>
-                <script type=text/javascript>
-                    $(function() {
-                      $('a#Decrease').on('click', function(e) {
-                        e.preventDefault()
-                        $.getJSON('/LowerCheck',
-                            function(data) {
-                          //do nothing
-                        });
-                        return false;
-                      });
-                    });
-                </script>
-                <a href=# id="Decrease"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
-                    Decrease
-                </button></a> -->
             </div>
         </div>
     </div>
