@@ -150,28 +150,31 @@ def CheckStockDiff_H():
     else:
         print("Incorrect.")
     homepage()
-    return render_template('home.html', loggedUser = userDict['dbUser'], loggedScore = userDict['dbStreak'], **newsDict,
-                                            dataset = filteredData, 
-                                            change = stockAPI.getFutureData(),
-                                            updatedDataset = stockAPI.getFutureDetails(),
+    return render_template('home.html', 
+                            loggedUser = userDict['dbUser'], 
+                            loggedScore = userDict['dbStreak'], 
+                            **newsDict,
+                            dataset = filteredData, 
+                            change = stockAPI.getFutureData(),
+                            updatedDataset = stockAPI.getFutureDetails(),
 
-                                            company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
-                                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
-                                            stockType = stockAPI.rMeta['type'], 
+                            company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
+                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
+                            stockType = stockAPI.rMeta['type'], 
 
-                                            stockDateCurrent = stockAPI.rValues[1]['datetime'],
-                                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
-                                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
-                                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
-                                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
-                                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
+                            stockDateCurrent = stockAPI.rValues[1]['datetime'],
+                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
+                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
+                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
+                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
+                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
 
-                                            stockDateFuture = stockAPI.rValues[0]['datetime'],
-                                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
-                                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
-                                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
-                                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
-                                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
+                            stockDateFuture = stockAPI.rValues[0]['datetime'],
+                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
+                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
+                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
+                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
+                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
                            )
 
 @app.route("/LowerCheck")
@@ -183,28 +186,31 @@ def CheckStockDiff_L():
     else:
         print("Incorrect.")
     homepage()
-    return render_template('home.html',  loggedUser = userDict['dbUser'], loggedScore = userDict['dbStreak'], **newsDict,
-                                            dataset = filteredData, 
-                                            change = stockAPI.getFutureData(),
-                                            updatedDataset = stockAPI.getFutureDetails(),
+    return render_template('home.html',  
+                            loggedUser = userDict['dbUser'], 
+                            loggedScore = userDict['dbStreak'],
+                            **newsDict,
+                            dataset = filteredData, 
+                            change = stockAPI.getFutureData(),
+                            updatedDataset = stockAPI.getFutureDetails(),
 
-                                            company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
-                                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
-                                            stockType = stockAPI.rMeta['type'], 
+                            company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
+                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
+                            stockType = stockAPI.rMeta['type'], 
 
-                                            stockDateCurrent = stockAPI.rValues[1]['datetime'],
-                                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
-                                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
-                                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
-                                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
-                                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
+                            stockDateCurrent = stockAPI.rValues[1]['datetime'],
+                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
+                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
+                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
+                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
+                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
 
-                                            stockDateFuture = stockAPI.rValues[0]['datetime'],
-                                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
-                                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
-                                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
-                                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
-                                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
+                            stockDateFuture = stockAPI.rValues[0]['datetime'],
+                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
+                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
+                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
+                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
+                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
                            )
 
 @app.route("/SameCheck")
@@ -216,28 +222,31 @@ def CheckStockDiff_S():
     else:
         print("Incorrect.")
     homepage()
-    return render_template('home.html',  loggedUser = userDict['dbUser'], loggedScore = userDict['dbStreak'], **newsDict,
-                                            dataset = filteredData, 
-                                            change = stockAPI.getFutureData(),
-                                            updatedDataset = stockAPI.getFutureDetails(),
+    return render_template('home.html',  
+                           loggedUser = userDict['dbUser'], 
+                           loggedScore = userDict['dbStreak'],
+                            **newsDict,
+                            dataset = filteredData, 
+                            change = stockAPI.getFutureData(),
+                            updatedDataset = stockAPI.getFutureDetails(),
 
-                                            company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
-                                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
-                                            stockType = stockAPI.rMeta['type'], 
+                            company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
+                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
+                            stockType = stockAPI.rMeta['type'], 
 
-                                            stockDateCurrent = stockAPI.rValues[1]['datetime'],
-                                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
-                                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
-                                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
-                                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
-                                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
+                            stockDateCurrent = stockAPI.rValues[1]['datetime'],
+                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
+                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
+                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
+                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
+                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
 
-                                            stockDateFuture = stockAPI.rValues[0]['datetime'],
-                                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
-                                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
-                                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
-                                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
-                                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
+                            stockDateFuture = stockAPI.rValues[0]['datetime'],
+                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
+                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
+                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
+                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
+                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
                            )
 
 @app.route("/update")
@@ -258,28 +267,31 @@ def UpdateScore():
 def homepage():
     filteredData  = stockAPI.getAPIData()
     newsTrial()
-    return render_template('home.html',  loggedUser = userDict['dbUser'], loggedScore = userDict['dbStreak'], **newsDict,
-                                            dataset = filteredData, 
-                                            change = stockAPI.getFutureData(),
-                                            updatedDataset = stockAPI.getFutureDetails(),
+    return render_template('home.html',  
+                            loggedUser = userDict['dbUser'],
+                            loggedScore = userDict['dbStreak'], 
+                            **newsDict,
+                            dataset = filteredData, 
+                            change = round(stockAPI.getFutureData()*100, 2),
+                            updatedDataset = stockAPI.getFutureDetails(),
 
-                                            company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
-                                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
-                                            stockType = stockAPI.rMeta['type'], 
+                            company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
+                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
+                            stockType = stockAPI.rMeta['type'], 
 
-                                            stockDateCurrent = stockAPI.rValues[1]['datetime'],
-                                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
-                                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
-                                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
-                                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
-                                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
+                            stockDateCurrent = stockAPI.rValues[1]['datetime'],
+                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
+                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
+                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
+                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
+                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
 
-                                            stockDateFuture = stockAPI.rValues[0]['datetime'],
-                                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
-                                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
-                                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
-                                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
-                                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
+                            stockDateFuture = stockAPI.rValues[0]['datetime'],
+                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
+                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
+                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
+                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
+                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
                            )
 
 @app.route("/profile")
