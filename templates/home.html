@@ -26,38 +26,23 @@
     <div class="row mainPageBlack">
         <div class="col-4">
             <div class="m-5 quicksand">
-            <p style="font-size: x-large;">{{ companyLong }}</p>
-            <p style="font-size: xx-large;">{{ closePriceCurrent }}</p>
-            <br>
-            <p style="font-size: larger;">{{ stockDateCurrent }}</p>
-            <div class="row" id="stockInfo">
-                <div class="col-6">
-                    <p style="font-size: medium;">Open   <span style="font-weight: 300;">{{ openPriceCurrent }}</span></p>
-                    <p style="font-size: medium;">Close   <span style="font-weight: 300;">{{ closePriceCurrent }}</span></p>
-                </div>
-                <div class="col-6">
-                    <p style="font-size: medium;">High   <span style="font-weight: 300;">{{ highPriceCurrent }}</span></p>
-                    <p style="font-size: medium;">Low   <span style="font-weight: 300;">{{ lowPriceCurrent }}</span></p>
-                </div>
-            </div>
-            <p style="font-size: medium;">Volume  <span style="font-weight: 300;">{{ volumeCurrent }}</span></p>
-
-            <!-- <p class="quicksand">
-                <h2 class="quicksand">192.03 </h2>
-
-                
-                <h6 class="quicksand">
-                {} past month
+                <p style="font-size: x-large;">{{ companyLong }}</p>
+                <p style="font-size: xx-large;" id="mainPrice">{{ closePriceCurrent }}</p>
+                <p class="mb-0" id="change"></p>
+                <p id="priceBought"></p>
                 <br>
-                {{ stockDateCurrent }}
-                    <br><br>
-                <br>
-                Current
-                Open - {{ openPriceCurrent }} <br>
-                Close - {{ closePriceCurrent }}
-                
-                </h6>  
-            </p> -->
+                <p style="font-size: larger;" id="stockDateFuture">{{ stockDateCurrent }}</p>
+                <div class="row">
+                    <div class="col-6">
+                        <p style="font-size: medium;">Open   <span  id="openFuturePrice" style="font-weight: 300;">{{ openPriceCurrent }}</span></p>
+                        <p style="font-size: medium;">Close   <span  id="closeFuturePrice" style="font-weight: 300;">{{ closePriceCurrent }}</span></p>
+                    </div>
+                    <div class="col-6">
+                        <p style="font-size: medium;">High   <span id="highFuturePrice" style="font-weight: 300;">{{ highPriceCurrent }}</span></p>
+                        <p style="font-size: medium;">Low   <span  id="lowFuturePrice" style="font-weight: 300;">{{ lowPriceCurrent }}</span></p>
+                    </div>
+                </div>
+                <p style="font-size: medium;">Volume  <span  id="volumeFuture" style="font-weight: 300;">{{ volumeCurrent }}</span></p>
             </div>
         </div>
         <div class="col-8">
@@ -109,54 +94,8 @@
                 <button type="button" class="btn buttonUnanswered mt-3" onclick="answered()" id="button3">
                     Decrease
                 </button>
-                <!-- 
-               <script type=text/javascript>
-                    $(function() {
-                      $('a#Increase').on('click', function(e) {
-                        e.preventDefault()
-                        $.getJSON('/HigherCheck',
-                            function(data) {
-                          //do nothing
-                        });
-                        return false;
-                      });
-                    });
-                </script>
-                <a href=# id="Increase"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
-                    Increase
-                </button></a>
-                <br>
-                <script type=text/javascript>
-                    $(function() {
-                      $('a#Stagnant').on('click', function(e) {
-                        e.preventDefault()
-                        $.getJSON('/SameCheck',
-                            function(data) {
-                          //do nothing
-                        });
-                        return false;
-                      });
-                    });
-                </script>
-                <a href=# id="Stagnant"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
-                    Remains the same
-                </button></a>
-                <br>
-                <script type=text/javascript>
-                    $(function() {
-                      $('a#Decrease').on('click', function(e) {
-                        e.preventDefault()
-                        $.getJSON('/LowerCheck',
-                            function(data) {
-                          //do nothing
-                        });
-                        return false;
-                      });
-                    });
-                </script>
-                <a href=# id="Decrease"><button type="button" onClick="window.location.reload();" class="btn choice mt-3">
-                    Decrease
-                </button></a> -->
+                <div class="mt-4" id="nextButton">
+                </div>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 import constants
+from datetime import datetime
 import newsAPI
 import stockAPI
 
@@ -45,7 +46,7 @@ def homepage():
     # UpdateStockParams()
     return render_template('home.html', 
                            dataset = filteredData, 
-                           change = stockAPI.getFutureData(),
+                           change = round(stockAPI.getFutureData()*100, 2),
                            updatedDataset = stockAPI.getFutureDetails(),
 
                            pub1 = newsAPI.newsArray[0]["published_at"][:10], 
@@ -68,19 +69,19 @@ def homepage():
                            companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
                            stockType = stockAPI.rMeta['type'], 
 
-                           stockDateCurrent = stockAPI.rValues[1]['datetime'],
+                           stockDateCurrent = formatDate(stockAPI.rValues[1]['datetime']),
                            openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
                            closePriceCurrent = round(float(stockAPI.rValues[1]['close']),2),
                            highPriceCurrent = round(float(stockAPI.rValues[1]['high']),2),
                            lowPriceCurrent = round(float(stockAPI.rValues[1]['low']),2),
                            volumeCurrent = round(float(stockAPI.rValues[1]['volume']),3),
 
-                           stockDateFuture = stockAPI.rValues[0]['datetime'],
+                           stockDateFuture = formatDate(stockAPI.rValues[0]['datetime']),
                            openPriceFuture = round(float(stockAPI.rValues[0]['open']),2),
                            closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
                            highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
                            lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
-                           volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
+                           volumePriceFuture = round(float(stockAPI.rValues[0]['volume']),3)
                            )
 
 @app.route("/profile")
@@ -183,8 +184,10 @@ def UpdateScore():
     update_user.streakScore = update_user.streakScore + 1
     db.session.commit()
 
-def roundTwo(num):
-    return (round(num*100))/100
+def formatDate(date):
+    newDate = datetime.strptime(date, "%Y-%m-%d")
+    return "" + newDate.strftime("%B") + " " + newDate.strftime("%d")+ ", " + newDate.strftime("%Y")
+
 
 if __name__ == '__main__':
     app.run(debug=True)

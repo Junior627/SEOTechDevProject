@@ -119,8 +119,34 @@ function removeChart(){
     horizontalLines.remove();
 }
 
-function updateHTMLInfo(){}
+function updateHTMLInfo(){  
+    var changeInfo = "" + changePrice + "% Past Month";
+    var priceBought = "Price Bought " + closeCurrent + "";
+
+    document.getElementById("mainPrice").innerText = closeFuture;
+    document.getElementById("stockDateFuture").innerText = dateFuture;
+    document.getElementById("change").innerText = changeInfo;
+    document.getElementById("priceBought").innerText = priceBought;
+    document.getElementById("closeFuturePrice").innerText = closeFuture;
+    document.getElementById("openFuturePrice").innerText = openFuture;
+    document.getElementById("highFuturePrice").innerText = highFuture;
+    document.getElementById("lowFuturePrice").innerText = lowFuture;
+    document.getElementById("volumeFuture").innerText = volumeFuture;
+}
+
+
+function nextButton(){
+    var nextButton = document.createElement("button");
+    nextButton.setAttribute("type", "button");
+    nextButton.setAttribute("class", "btn nextButton")
+    nextButton.setAttribute("onclick", "window.location.reload()")
+    nextButton.textContent = "Next"
+    var nextPosition = document.getElementById('nextButton');
+    nextPosition.appendChild(nextButton);
+}
+
 chart1();
+
 function answered() {
     var button1 = document.getElementById('button1');
     var button2 = document.getElementById('button2');
@@ -133,7 +159,7 @@ function answered() {
         button3.classList.replace("buttonUnanswered", "buttonCorrect");
         console.log("third")
     }
-    else if (changePrice < 0.04 && changePrice > 0){
+    else if (changePrice < 4 && changePrice > 0){
         button1.classList.replace("buttonUnanswered", "buttonWrong");
         button2.classList.replace("buttonUnanswered", "buttonCorrect");
         button3.classList.replace("buttonUnanswered", "buttonWrong");
@@ -150,4 +176,6 @@ function answered() {
     document.querySelector('#button3').disabled = true;
     removeChart();
     chart2();
+    updateHTMLInfo();
+    nextButton();
 }

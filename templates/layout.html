@@ -47,9 +47,16 @@
 
     <script>
     var data = {{ dataset|tojson }};
-    const changePrice = {{ change|tojson }};
+    var changePrice = {{ change|tojson }};
     var updatedData = {{ updatedDataset|tojson }};
 
+    var closeCurrent = "{{ closePriceCurrent }}"
+    var dateFuture = "{{ stockDateFuture}}";
+    var closeFuture = "{{ closePriceFuture }}";
+    var openFuture = "{{ openPriceFuture }}";
+    var highFuture = "{{ highPriceFuture }}";
+    var lowFuture = "{{ lowPriceFuture }}";
+    var volumeFuture = "{{ volumePriceFuture }}";
     console.log(data)
     console.log(changePrice)
 
