@@ -54,15 +54,6 @@
         </div>
     </div>
     <div class="row mainPageStandard">
-
-        {% if loggedUser == "" %}
-            <p>Hello, user.</p>
-            {% else %}
-            <p>Hello, {{loggedUser}}!</p>
-        {% endif %}
-        <p>Your Highest Streak: {{loggedScore}}</p>
-
-
         <div class="col-8 align-self-center">
             <div class="container newsBox">
                 <div class="row d-flex justify-content-center">
@@ -94,20 +85,30 @@
             </div>
         </div>
         <div class="col-4 p-0 ">
-            <div class="answerBox">
-                <h5>Within four weeks, the price of {{ company }} will?</h5>
-                <button type="button" class="btn buttonUnanswered mt-3" onclick="answered()" id="button1">
-                    Increase
-                </button>
-                <br>
-                <button type="button" class="btn buttonUnanswered mt-3" onclick="answered()" id="button2">
-                    Remains the same
-                </button>
-                <br>
-                <button type="button" class="btn buttonUnanswered mt-3" onclick="answered()" id="button3">
-                    Decrease
-                </button>
-                <div class="mt-4" id="nextButton">
+            <div class="container-fluid m-0 p-0">
+                <div class="userInfo quicksandblack">
+                {% if loggedUser == "" %}
+                <p class="pb-0">Hello, Player.</p>
+                {% else %}
+                <p>Hello, {{loggedUser}}!</p>
+                {% endif %}
+                <p>Your Highest Streak: {{loggedScore}}</p>
+                </div>
+                <div class="answerBox">
+                    <h5 class="quicksandblack">Within four weeks, the price of {{ company }} will?</h5>
+                    <button type="button" class="btn buttonUnanswered mt-3" onclick="answered()" id="button1">
+                        Increase
+                    </button>
+                    <br>
+                    <button type="button" class="btn buttonUnanswered mt-3" onclick="answered()" id="button2">
+                        Remains the same
+                    </button>
+                    <br>
+                    <button type="button" class="btn buttonUnanswered mt-3" onclick="answered()" id="button3">
+                        Decrease
+                    </button>
+                    <div class="mt-4" id="nextButton">
+                    </div>
                 </div>
             </div>
         </div>

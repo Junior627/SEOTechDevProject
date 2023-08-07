@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, flash, redirect, request, session
-from forms import RegistrationForm
+from forms import RegistrationForm, LoginForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -72,7 +72,7 @@ def newsTrial():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    form = RegistrationForm()
+    form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
         print(user)

@@ -8,6 +8,11 @@
     font-family: 'Quicksand', sans-serif;
     font-weight: 500;
 }
+.quicksandblack {
+    color: black !important;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+}
 .quicksand12 {
     color: black;
     font-family: 'Quicksand', sans-serif;
@@ -133,15 +138,12 @@
     padding-top: 2px;
 }
 .answerBox {
-    border: 0.5px solid #6c757d;
+    border: 0.5px solid #85919b;
     border-radius: 5px;
-    margin: 7vh;
-    margin-left: 5vh;
-    margin-right: 10vh;
-    height: 61vh;
+    margin: 0vh 10vh 4vh 5vh;
+    height: 50vh;
     text-align: center;
-    padding:20% 5% 20%;
-    
+    padding:15% 5% 15%;
 
 }
 .border {
@@ -168,7 +170,16 @@
 }
 .newsBox {
     height: 70vh;
-    padding-top: 10%;
+    padding-top: 4%;
+}
+.userInfo {
+    border: 0.5px solid #85919b;
+    border-radius: 5px;
+    margin: 4vh 10vh 2vh 5vh;
+    height: 15vh;
+    text-align: center;
+    padding:6%
+
 }
 .max-height {
     max-height: 350px;

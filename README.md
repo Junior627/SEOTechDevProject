@@ -1,19 +1,24 @@
-# Creating Python programs in Codio
+# Investivia 
 
-### Make a new file
-Use **File > New File...** or right-click in the file tree to create a new file. You can right-click in the file tree to rename or delete files.
+Investivia is a stock questionire game where players guess whether a stock is going increase, constant, decrease in price within one month. Inorder to predict the result, players are provided with three news articles. To keep track of their streaks and points, players will be able to create a profile. 
 
-As Codio detects which file is in focus, simply put your cursor into whichever code editor you want to run.
+Website Link -- 
+### Usage
+1. Click on the profile icon on the navigation bar on the top right.
+2. Returning users sign in and new users should create an account.
+Note if the player doesn't want to create an account, they can click on the play button on the navigation bar.
+3. Homepage will reload and the players answers will be tracked.
+4. Scroll down below the graph to find the news articles and question, select an answer. 
+5. Page will update to confirm if your answer is right or wrong. Stock information and graph will update as well.
+6. Next button will appear to continue to the next question.
+7. Once finished, click on the profile icon to log out. 
+### APIs
+ 
+News API --
+Stock API -- 
+### Copyright
+We do not have any relationship with any of the companies displayed on the website. 
 
-### Run your code
-Use the Run button (that looks like a Rocketship) to Run the file your cursor is in.
 
-### Debug your code
-Use the "Debug Current File" on the far right of the top menu bar to launch the debugger targeting the file your cursor is in.
-
-### Reconfigure your Panels for easier development
-Use the **View > Panels** menu on the top tool bar to segment your screen.
-
-Simply drag the tab of the file or terminal (the part with the name) you want to move into the new panel.
 
 

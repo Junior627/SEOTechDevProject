@@ -18,10 +18,6 @@ var svg = d3.select("#stockChart")
     .attr("transform", `translate(${marginLeft}, ${marginRight})`);
 
 
-for(let index = 0; index < data1.length; index++){
-    data1[index]["date"] = new Date(data1[index]["date"])
-}
-
 var area, line, horizontalLines;
 function drawbasic(data, xSpacing, color){
     for(let index = 0; index < data.length; index++){
@@ -178,6 +174,7 @@ function updateHTMLInfo(){
 }
 
 
+
 function nextButton(){
     var nextButton = document.createElement("button");
     nextButton.setAttribute("type", "button");
@@ -201,14 +198,14 @@ function answered() {
     document.querySelector('#button3').disabled = true;
     removeChart();
 
-    if (changePrice < 0){
+    if (changePrice < -50){
         button1.classList.replace("buttonUnanswered", "buttonWrong");
         button2.classList.replace("buttonUnanswered", "buttonWrong");
         button3.classList.replace("buttonUnanswered", "buttonCorrect");
         console.log("third")
         chart2("red");
     }
-    else if (changePrice < 4 && changePrice > 0){
+    else if (changePrice < 40 && changePrice > -50){
         button1.classList.replace("buttonUnanswered", "buttonWrong");
         button2.classList.replace("buttonUnanswered", "buttonCorrect");
         button3.classList.replace("buttonUnanswered", "buttonWrong");
