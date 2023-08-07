@@ -17,7 +17,7 @@ app = Flask(__name__)
 proxied = FlaskBehindProxy(app)
 app.config['SECRET_KEY']= constants.db_key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 score = 0
 currentuserID = ''
@@ -27,7 +27,7 @@ stockOpen =0
 stockClose =0
 updatedParams = []
 
-newsDict ={}   
+newsDict ={}
 userDict ={
     'dbUser' : "",
     'dbStreak' : 0
@@ -52,21 +52,21 @@ def newsTrial():
     newsDict={}
     newsDict={
         'symbol': newsAPI.newsArray[0]["entities"][0]["name"],
-        'pub1': newsAPI.newsArray[0]["published_at"], 
-        'pub2' : newsAPI.newsArray[1]["published_at"], 
-        'pub3' : newsAPI.newsArray[2]["published_at"], 
-        'title1' : newsAPI.newsArray[0]["title"], 
-        'title2' : newsAPI.newsArray[1]["title"], 
-        'title3' : newsAPI.newsArray[2]["title"], 
-        'disc1' : newsAPI.newsArray[0]["description"], 
-        'disc2' : newsAPI.newsArray[1]["description"], 
+        'pub1': newsAPI.newsArray[0]["published_at"],
+        'pub2' : newsAPI.newsArray[1]["published_at"],
+        'pub3' : newsAPI.newsArray[2]["published_at"],
+        'title1' : newsAPI.newsArray[0]["title"],
+        'title2' : newsAPI.newsArray[1]["title"],
+        'title3' : newsAPI.newsArray[2]["title"],
+        'disc1' : newsAPI.newsArray[0]["description"],
+        'disc2' : newsAPI.newsArray[1]["description"],
         'disc3' : newsAPI.newsArray[2]["description"],
-        'url1' : newsAPI.newsArray[0]["url"], 
-        'url2' : newsAPI.newsArray[1]["url"], 
+        'url1' : newsAPI.newsArray[0]["url"],
+        'url2' : newsAPI.newsArray[1]["url"],
         'url3' : newsAPI.newsArray[2]["url"],
         'source1' : newsAPI.newsArray[0]["source"],
         'source2' : newsAPI.newsArray[1]["source"],
-        'source3' : newsAPI.newsArray[2]["source"],  
+        'source3' : newsAPI.newsArray[2]["source"],
     }
 
     return "Updated"
@@ -151,17 +151,18 @@ def CheckStockDiff_H():
     else:
         print("Incorrect.")
     homepage()
-    return render_template('home.html', 
-                            loggedUser = userDict['dbUser'], 
-                            loggedScore = userDict['dbStreak'], 
+    return render_template('home.html',
+                            loggedUser = userDict['dbUser'],
+                            loggedScore = userDict['dbStreak'],
+                            currentScore = score,
                             **newsDict,
-                            dataset = filteredData, 
+                            dataset = filteredData,
                             change = stockAPI.getFutureData(),
                             updatedDataset = stockAPI.getFutureDetails(),
 
                             company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
                             companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
-                            stockType = stockAPI.rMeta['type'], 
+                            stockType = stockAPI.rMeta['type'],
 
                             stockDateCurrent = stockAPI.rValues[1]['datetime'],
                             openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
@@ -187,17 +188,18 @@ def CheckStockDiff_L():
     else:
         print("Incorrect.")
     homepage()
-    return render_template('home.html',  
-                            loggedUser = userDict['dbUser'], 
+    return render_template('home.html',
+                            loggedUser = userDict['dbUser'],
                             loggedScore = userDict['dbStreak'],
+                            currentScore = score,
                             **newsDict,
-                            dataset = filteredData, 
+                            dataset = filteredData,
                             change = stockAPI.getFutureData(),
                             updatedDataset = stockAPI.getFutureDetails(),
 
                             company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
                             companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
-                            stockType = stockAPI.rMeta['type'], 
+                            stockType = stockAPI.rMeta['type'],
 
                             stockDateCurrent = stockAPI.rValues[1]['datetime'],
                             openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
@@ -223,17 +225,18 @@ def CheckStockDiff_S():
     else:
         print("Incorrect.")
     homepage()
-    return render_template('home.html',  
-                           loggedUser = userDict['dbUser'], 
+    return render_template('home.html',
+                           loggedUser = userDict['dbUser'],
                            loggedScore = userDict['dbStreak'],
+                           currentScore = score,
                             **newsDict,
-                            dataset = filteredData, 
+                            dataset = filteredData,
                             change = stockAPI.getFutureData(),
                             updatedDataset = stockAPI.getFutureDetails(),
 
                             company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
                             companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
-                            stockType = stockAPI.rMeta['type'], 
+                            stockType = stockAPI.rMeta['type'],
 
                             stockDateCurrent = stockAPI.rValues[1]['datetime'],
                             openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
@@ -265,27 +268,36 @@ def UpdateScore():
 
 @app.route('/process', methods=['POST'])
 def process():
-    dataL = request.get_json() 
+    dataL = request.get_json()
     UpdateScore()
-    print(dataL) 
+    print(dataL)
     return dataL
 
-@app.route("/home")    
+@app.route('/processIncorrect', methods=['POST'])
+def processIncorrect():
+    dataL = request.get_json()
+    global score
+    score = 0
+    print(dataL)
+    return dataL
+
+@app.route("/home")
 @app.route("/")
 def homepage():
     filteredData  = stockAPI.getAPIData()
     newsTrial()
-    return render_template('home.html',  
+    return render_template('home.html',
                             loggedUser = userDict['dbUser'],
-                            loggedScore = userDict['dbStreak'], 
+                            loggedScore = userDict['dbStreak'],
+                            currentScore = score,
                             **newsDict,
-                            dataset = filteredData, 
+                            dataset = filteredData,
                             change = round(stockAPI.getFutureData()*100, 2),
                             updatedDataset = stockAPI.getFutureDetails(),
 
                             company = stockAPI.returnName(stockAPI.symbolDate[0], 1),
                             companyLong = stockAPI.returnName(stockAPI.symbolDate[0], 0),
-                            stockType = stockAPI.rMeta['type'], 
+                            stockType = stockAPI.rMeta['type'],
 
                             stockDateCurrent = stockAPI.rValues[1]['datetime'],
                             openPriceCurrent = round(float(stockAPI.rValues[1]['open']),2),
@@ -330,6 +342,6 @@ def displayUserInfo(name , streak):
         'dbUser': name,
         'dbStreak': streak
     }
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
