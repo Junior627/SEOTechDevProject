@@ -262,6 +262,13 @@ def UpdateScore():
             displayUserInfo(update_user.username, update_user.streakScore)
     return("Updated")
 
+@app.route('/process', methods=['POST'])
+def process():
+    dataL = request.get_json() 
+    UpdateScore()
+    print(dataL) 
+    return dataL
+
 @app.route("/home")    
 @app.route("/")
 def homepage():
@@ -291,7 +298,7 @@ def homepage():
                             closePriceFuture = round(float(stockAPI.rValues[0]['close']),2),
                             highPriceFuture = round(float(stockAPI.rValues[0]['high']),2),
                             lowPriceFuture = round(float(stockAPI.rValues[0]['low']),2),
-                            volumeFuture = round(float(stockAPI.rValues[0]['volume']),3)
+                            volumePriceFuture = round(float(stockAPI.rValues[0]['volume']),3)
                            )
 
 @app.route("/profile")

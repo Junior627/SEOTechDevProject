@@ -187,7 +187,7 @@ function nextButton(){
 
 chart1();
 
-function answered() {
+function answered(state) {
     var button1 = document.getElementById('button1');
     var button2 = document.getElementById('button2');
     var button3 = document.getElementById('button3');
@@ -198,19 +198,35 @@ function answered() {
     document.querySelector('#button3').disabled = true;
     removeChart();
 
-    if (changePrice < -50){
+    if (changePrice < 0){
         button1.classList.replace("buttonUnanswered", "buttonWrong");
         button2.classList.replace("buttonUnanswered", "buttonWrong");
         button3.classList.replace("buttonUnanswered", "buttonCorrect");
-        console.log("third")
+        console.log("third");
         chart2("red");
+        if(state == 3){
+            $.ajax({
+                url: '/process',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify("3")
+            });
+        }
     }
-    else if (changePrice < 40 && changePrice > -50){
+    else if (changePrice < 4 && changePrice > 0){
         button1.classList.replace("buttonUnanswered", "buttonWrong");
         button2.classList.replace("buttonUnanswered", "buttonCorrect");
         button3.classList.replace("buttonUnanswered", "buttonWrong");
         console.log("second")
         chart2("grey")
+        if(state == 2){
+            $.ajax({
+                url: '/process',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify("2")
+            });
+        }
     }
     else {
         button1.classList.replace("buttonUnanswered", "buttonCorrect");
@@ -218,6 +234,14 @@ function answered() {
         button3.classList.replace("buttonUnanswered", "buttonWrong");
         console.log("first")
         chart2("green")
+        if(state == 1){
+            $.ajax({
+                url: '/process',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify("1")
+            });
+        }
     }
 
     updateHTMLInfo();
