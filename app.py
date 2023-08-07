@@ -3,6 +3,7 @@ from forms import RegistrationForm, LoginForm
 from flask_behind_proxy import FlaskBehindProxy
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+import git
 
 import newsAPI
 import constants
@@ -308,6 +309,16 @@ def profile():
 @app.route("/story")
 def story():
     return render_template('story.html')
+
+@app.route("/update_server", methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('/home/InvestriviaSEOTechDev/SEOTechDevProject')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
 
 def formatDate(date):
     newDate = datetime.strptime(date, "%Y-%m-%d")
