@@ -212,6 +212,14 @@ function answered(state) {
                 data: JSON.stringify("3")
             });
         }
+        else{
+            $.ajax({
+                url: '/processIncorrect',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(state)
+            });
+        }
     }
     else if (changePrice < 4 && changePrice > 0){
         button1.classList.replace("buttonUnanswered", "buttonWrong");
@@ -227,6 +235,14 @@ function answered(state) {
                 data: JSON.stringify("2")
             });
         }
+        else{
+            $.ajax({
+                url: '/processIncorrect',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(state)
+            });
+        }
     }
     else {
         button1.classList.replace("buttonUnanswered", "buttonCorrect");
@@ -240,6 +256,14 @@ function answered(state) {
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify("1")
+            });
+        }
+        else{
+            $.ajax({
+                url: '/processIncorrect',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(state)
             });
         }
     }
