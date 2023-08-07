@@ -14,8 +14,8 @@ Note if the player doesn't want to create an account, they can click on the play
 7. Once finished, click on the profile icon to log out. 
 ### APIs
  
-News API --
-Stock API -- 
+News API -- https://www.marketaux.com/
+Stock API -- https://twelvedata.com/
 ### Copyright
 We do not have any relationship with any of the companies displayed on the website. 
 
