@@ -17,7 +17,7 @@ Note if the player doesn't want to create an account, they can click on the play
 News API -- https://www.marketaux.com/
 Stock API -- https://twelvedata.com/
 ### Copyright
-We do not have any relationship with any of the companies displayed on the website. 
+We do not have any relationship with any of the companies displayed on the website. All data collected is provided from these public, free-to-use APIs listed above.
 
 
 
